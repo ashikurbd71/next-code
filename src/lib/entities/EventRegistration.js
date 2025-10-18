@@ -27,6 +27,10 @@ export const EventRegistration = new EntitySchema({
             type: 'text',
             nullable: true
         },
+        instituteName: {
+            type: 'varchar',
+            nullable: true
+        },
         createdAt: {
             type: 'timestamp',
             default: () => 'CURRENT_TIMESTAMP'

@@ -21,7 +21,8 @@ export const Student = new EntitySchema({
         },
         studentId: {
             type: 'varchar',
-            unique: true
+            unique: true,
+            nullable: true
         },
         phone: {
             type: 'varchar',

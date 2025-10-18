@@ -162,51 +162,18 @@ export default function EventRegistrationForm({ event, onRegistrationSuccess }) 
         setIsSubmitting(true);
 
         try {
-            // First, check if student already exists
-            let studentId;
-            const existingStudentResponse = await fetch(`/api/students?email=${encodeURIComponent(formData.email)}`);
-
-            if (existingStudentResponse.ok) {
-                const existingStudents = await existingStudentResponse.json();
-                if (existingStudents.length > 0) {
-                    // Student exists, use their ID
-                    studentId = existingStudents[0].id;
-                } else {
-                    // Student doesn't exist, create new one
-                    const studentResponse = await fetch('/api/students', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            name: formData.name,
-                            email: formData.email,
-                            department: formData.department,
-                            phone: formData.phone,
-                            semester: formData.semester
-                        }),
-                    });
-
-                    if (studentResponse.ok) {
-                        const studentData = await studentResponse.json();
-                        studentId = studentData.id;
-                    } else {
-                        const errorData = await studentResponse.json();
-                        throw new Error(`Failed to create student: ${errorData.error || 'Unknown error'}`);
-                    }
-                }
-            } else {
-                throw new Error('Failed to check existing student');
-            }
-
-            // Then create the event registration
+            // Create the event registration directly
             const registrationResponse = await fetch('/api/event-registrations', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    studentId: studentId,
+                    name: formData.name,
+                    email: formData.email,
+                    department: formData.department,
+                    phone: formData.phone,
+                    semester: formData.semester,
                     eventId: event.id,
                     instituteName: formData.instituteName,
                     notes: `Motivation: ${formData.motivation}`

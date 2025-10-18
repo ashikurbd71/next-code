@@ -66,7 +66,7 @@ export default function Footer() {
                         <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Contact Us</h3>
                         <div className="space-y-2 sm:space-y-3">
                             <div className="flex items-center space-x-2 sm:space-x-3">
-                                <Mail className="h-4 w-4 sm:h-5 sm:w-5 text-orange-400 flex-shrink-0" />
+                                <Mail className="h-4 w-4 sm:h-5 sm:w-5 text-orange-800 flex-shrink-0" />
                                 <span className="text-gray-900 text-xs sm:text-sm">contact@nextcode.com</span>
                             </div>
                             <div className="flex items-center space-x-2 sm:space-x-3">

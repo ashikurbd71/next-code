@@ -41,25 +41,32 @@ export async function POST(request) {
         const body = await request.json();
         console.log('Event registration request body:', body);
 
-        const { studentId, eventId, notes, groupLinkId } = body;
+        const { name, email, department, phone, semester, eventId, notes, groupLinkId, instituteName } = body;
 
         // Validate required fields
-        if (!studentId || !eventId) {
+        if (!name || !email || !eventId) {
             return NextResponse.json({
-                error: 'Missing required fields: studentId and eventId are required'
+                error: 'Missing required fields: name, email and eventId are required'
             }, { status: 400 });
         }
 
-        // Check if student exists
+        // Check if student exists by email, if not create one
         const studentRepository = dataSource.getRepository('Student');
-        const student = await studentRepository.findOne({
-            where: { id: parseInt(studentId) }
+        let student = await studentRepository.findOne({
+            where: { email: email }
         });
 
         if (!student) {
-            return NextResponse.json({
-                error: 'Student not found'
-            }, { status: 404 });
+            // Create new student
+            const newStudent = studentRepository.create({
+                name,
+                email,
+                department: department || null,
+                phone: phone || null,
+                semester: semester || null,
+                status: 'approved' // Auto-approve for event registrations
+            });
+            student = await studentRepository.save(newStudent);
         }
 
         // Check if event exists
@@ -76,7 +83,7 @@ export async function POST(request) {
 
         // Check if registration already exists
         const existingRegistration = await registrationRepository.findOne({
-            where: { studentId: parseInt(studentId), eventId: parseInt(eventId) }
+            where: { studentId: student.id, eventId: parseInt(eventId) }
         });
 
         if (existingRegistration) {
@@ -84,9 +91,10 @@ export async function POST(request) {
         }
 
         const registration = registrationRepository.create({
-            studentId: parseInt(studentId),
+            studentId: student.id,
             eventId: parseInt(eventId),
             notes,
+            instituteName,
             groupLinkId: groupLinkId ? parseInt(groupLinkId) : null,
             status: 'pending'
         });
