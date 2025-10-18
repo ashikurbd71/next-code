@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calendar, MapPin, Users, ExternalLink, Clock } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function EventsPage() {
     const [upcomingEvents, setUpcomingEvents] = useState([]);
@@ -152,7 +153,7 @@ export default function EventsPage() {
                         <div className="text-center mb-8 sm:mb-12 md:mb-16">
                             <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 px-2 sm:px-4">Upcoming <span className="text-orange-800 animate-pulse">Events</span></h2>
                             <p className="text-base sm:text-lg md:text-md text-gray-600 px-2 sm:px-4 leading-relaxed max-w-4xl mx-auto">
-                                Don't miss out on these exciting upcoming events. Register now to secure your spot!
+                                Don&apos;t miss out on these exciting upcoming events. Register now to secure your spot!
                             </p>
                         </div>
 
@@ -162,10 +163,11 @@ export default function EventsPage() {
                                     <Card key={event.id} className="hover:shadow-lg border border-orange-800 transition-all duration-300 hover:scale-[1.02]  shadow-md overflow-hidden">
                                         {event.image && (
                                             <div className="relative h-48 sm:h-52 md:h-56">
-                                                <img
+                                                <Image
                                                     src={event.image}
                                                     alt={event.title}
-                                                    className="w-full h-full object-cover"
+                                                    fill
+                                                    className="object-cover"
                                                 />
                                                 <div className="absolute top-3 right-3">
                                                     <Badge variant={isEventSoon(event.date) ? "destructive" : "secondary"} className="text-xs sm:text-sm px-2 py-1">
@@ -240,10 +242,11 @@ export default function EventsPage() {
                                     <Card key={event.id} className="hover:shadow-lg border border-orange-800 transition-all duration-300 hover:scale-[1.02]  shadow-md overflow-hidden">
                                         {event.image && (
                                             <div className="relative h-48 sm:h-52 md:h-56">
-                                                <img
+                                                <Image
                                                     src={event.image}
                                                     alt={event.title}
-                                                    className="w-full h-full object-cover"
+                                                    fill
+                                                    className="object-cover"
                                                 />
                                                 <div className="absolute top-3 right-3">
                                                     <Badge variant="outline" className="text-xs sm:text-sm px-2 py-1 bg-white">Completed</Badge>

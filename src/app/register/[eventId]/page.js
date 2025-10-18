@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -14,11 +14,7 @@ export default function EventRegistrationPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        fetchEvent();
-    }, [params.eventId]);
-
-    const fetchEvent = async () => {
+    const fetchEvent = useCallback(async () => {
         try {
             const response = await fetch(`/api/events/${params.eventId}`);
             if (response.ok) {
@@ -33,7 +29,11 @@ export default function EventRegistrationPage() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [params.eventId]);
+
+    useEffect(() => {
+        fetchEvent();
+    }, [fetchEvent]);
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);

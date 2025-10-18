@@ -81,7 +81,7 @@ export default function RegistrationSuccessPage() {
             <div className="min-h-screen flex items-center justify-center mobile-spacing-base">
                 <div className="text-center">
                     <h1 className="mobile-heading-responsive font-bold text-gray-900 mb-4">Event Not Found</h1>
-                    <p className="mobile-text-responsive text-gray-600 mb-4">The event you're looking for doesn't exist.</p>
+                    <p className="mobile-text-responsive text-gray-600 mb-4">The event you&apos;re looking for doesn&apos;t exist.</p>
                     <button
                         onClick={() => window.location.href = '/events'}
                         className="mobile-button bg-blue-600 text-white rounded hover:bg-blue-700 mobile-tap-highlight"

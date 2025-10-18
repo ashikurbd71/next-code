@@ -241,7 +241,7 @@ export default function JoinPage() {
                                     and is currently under review by our committee.
                                 </p>
                                 <p className="text-gray-600 mb-8">
-                                    We'll review your application and get back to you within 3-5 business days.
+                                    We&apos;ll review your application and get back to you within 3-5 business days.
                                     In the meantime, feel free to explore our events and community.
                                 </p>
                                 <div className="flex flex-col sm:flex-row gap-4 justify-center">

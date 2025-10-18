@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -16,9 +16,9 @@ export default function LeaderboardPage() {
 
     useEffect(() => {
         fetchStudents();
-    }, []);
+    }, [fetchStudents]);
 
-    const fetchStudents = async () => {
+    const fetchStudents = useCallback(async () => {
         try {
             const response = await fetch('/api/students?approved=true');
             if (response.ok) {
@@ -43,7 +43,7 @@ export default function LeaderboardPage() {
         } finally {
             setLoading(false);
         }
-    };
+    }, []);
 
     const getFallbackLeaderboard = () => [
         {

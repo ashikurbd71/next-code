@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -43,15 +43,7 @@ export default function TalentPage() {
         'Database Management'
     ];
 
-    useEffect(() => {
-        fetchStudents();
-    }, []);
-
-    useEffect(() => {
-        filterStudents();
-    }, [students, searchTerm, selectedDepartment, selectedSkill]);
-
-    const fetchStudents = async () => {
+    const fetchStudents = useCallback(async () => {
         try {
             const response = await fetch('/api/students?approved=true');
             if (response.ok) {
@@ -66,7 +58,40 @@ export default function TalentPage() {
         } finally {
             setLoading(false);
         }
-    };
+    }, []);
+
+    const filterStudents = useCallback(() => {
+        let filtered = students;
+
+        // Search filter
+        if (searchTerm) {
+            filtered = filtered.filter(student =>
+                student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                student.department.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                student.skills.some(skill => skill.toLowerCase().includes(searchTerm.toLowerCase()))
+            );
+        }
+
+        // Department filter
+        if (selectedDepartment !== 'all') {
+            filtered = filtered.filter(student => student.department === selectedDepartment);
+        }
+
+        // Skill filter
+        if (selectedSkill !== 'all') {
+            filtered = filtered.filter(student => student.skills.includes(selectedSkill));
+        }
+
+        setFilteredStudents(filtered);
+    }, [students, searchTerm, selectedDepartment, selectedSkill]);
+
+    useEffect(() => {
+        fetchStudents();
+    }, [fetchStudents]);
+
+    useEffect(() => {
+        filterStudents();
+    }, [filterStudents]);
 
     const getFallbackStudents = () => [
         {
@@ -159,30 +184,6 @@ export default function TalentPage() {
         }
     ];
 
-    const filterStudents = () => {
-        let filtered = students;
-
-        // Search filter
-        if (searchTerm) {
-            filtered = filtered.filter(student =>
-                student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                student.department.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                student.skills.some(skill => skill.toLowerCase().includes(searchTerm.toLowerCase()))
-            );
-        }
-
-        // Department filter
-        if (selectedDepartment !== 'all') {
-            filtered = filtered.filter(student => student.department === selectedDepartment);
-        }
-
-        // Skill filter
-        if (selectedSkill !== 'all') {
-            filtered = filtered.filter(student => student.skills.includes(selectedSkill));
-        }
-
-        setFilteredStudents(filtered);
-    };
 
     if (loading) {
         return (
