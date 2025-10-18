@@ -23,34 +23,6 @@ export default function Testimonials() {
         return () => clearInterval(interval);
     }, [testimonials.length]);
 
-    const getFallbackTestimonials = () => {
-        return [
-            {
-                id: 1,
-                name: "Sarah Johnson",
-                role: "Software Engineer",
-                department: "Computer Science",
-                content: "NextCode provided me with the perfect foundation to launch my career in tech. The hands-on projects and mentorship were invaluable.",
-                photo: null
-            },
-            {
-                id: 2,
-                name: "Michael Chen",
-                role: "Full Stack Developer",
-                department: "Information Technology",
-                content: "The community at NextCode is amazing. I learned not just coding, but also how to work in teams and solve real-world problems.",
-                photo: null
-            },
-            {
-                id: 3,
-                name: "Emily Rodriguez",
-                role: "Data Scientist",
-                department: "Data Science",
-                content: "NextCode's curriculum is perfectly aligned with industry needs. I was able to transition smoothly into my dream job.",
-                photo: null
-            }
-        ];
-    };
 
     const fetchTestimonials = async () => {
         try {
@@ -81,10 +53,12 @@ export default function Testimonials() {
         );
     };
 
-    const currentTestimonial = testimonials;
+
+    console.log(testimonials)
+
 
     // Don't render if no testimonials are loaded yet
-    if (!currentTestimonial || testimonials.length === 0) {
+    if (!testimonials || testimonials.length === 0) {
         return (
             <section className="py-12 sm:py-16 lg:py-20 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -136,25 +110,25 @@ export default function Testimonials() {
                         <div className="text-center relative z-10">
                             <div className="mb-6 sm:mb-8">
                                 <Avatar className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6">
-                                    <AvatarImage src={currentTestimonial.photo} alt={currentTestimonial.name} />
+                                    <AvatarImage src={testimonials[currentIndex]?.photo} alt={testimonials[currentIndex]?.name} />
                                     <AvatarFallback className="text-lg sm:text-xl font-semibold bg-orange-100 text-orange-800">
-                                        {currentTestimonial.name ? currentTestimonial.name.split(' ').map(n => n[0]).join('') : 'NC'}
+                                        {testimonials[currentIndex]?.name ? testimonials[currentIndex]?.name?.split(' ').map((n) => n[0]).join('') : 'NC'}
                                     </AvatarFallback>
                                 </Avatar>
 
                                 <h3 className="text-lg sm:text-xl lg:text-xl font-semibold text-gray-900 mb-1 sm:mb-2">
-                                    {currentTestimonial.name || 'Anonymous'}
+                                    {testimonials[currentIndex]?.name || 'Anonymous'}
                                 </h3>
                                 <p className="text-orange-800 font-medium mb-1 text-sm sm:text-base lg:text-lg">
-                                    {currentTestimonial.role || 'Student'}
+                                    {testimonials[currentIndex]?.role || 'Student'}
                                 </p>
                                 <p className="text-gray-500 text-xs sm:text-sm">
-                                    {currentTestimonial.department || 'Computer Science'} • NextCode Alumni
+                                    {testimonials[currentIndex]?.department || 'Computer Science'} • NextCode Alumni
                                 </p>
                             </div>
 
                             <blockquote className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed italic mb-6 sm:mb-8 px-2">
-                                "{currentTestimonial.content || 'Great experience with NextCode!'}"
+                                "{testimonials[currentIndex]?.content || 'Great experience with NextCode!'}"
                             </blockquote>
                         </div>
 

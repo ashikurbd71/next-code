@@ -54,7 +54,7 @@ export default function EventsPage() {
             title: "React Workshop: Building Modern UIs",
             description: "Learn the latest React patterns and best practices for building scalable user interfaces. Perfect for beginners and intermediate developers.",
             date: "2024-02-15T10:00:00Z",
-            image: null,
+            image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=250&fit=crop&crop=center",
             registrationLink: "https://forms.gle/example1",
             isUpcoming: true
         },
@@ -63,7 +63,7 @@ export default function EventsPage() {
             title: "AI & Machine Learning Hackathon",
             description: "48-hour hackathon focused on AI solutions for real-world problems. Prizes worth $5000 for winning teams.",
             date: "2024-02-20T09:00:00Z",
-            image: null,
+            image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=250&fit=crop&crop=center",
             registrationLink: "https://forms.gle/example2",
             isUpcoming: true
         },
@@ -72,7 +72,7 @@ export default function EventsPage() {
             title: "Web Security Workshop",
             description: "Deep dive into web security vulnerabilities and how to protect your applications. Hands-on exercises included.",
             date: "2024-02-25T14:00:00Z",
-            image: null,
+            image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=400&h=250&fit=crop&crop=center",
             registrationLink: null,
             isUpcoming: true
         }
@@ -84,7 +84,7 @@ export default function EventsPage() {
             title: "JavaScript Fundamentals Bootcamp",
             description: "Comprehensive 3-day bootcamp covering ES6+, async programming, and modern JavaScript patterns.",
             date: "2024-01-15T10:00:00Z",
-            image: null,
+            image: "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=400&h=250&fit=crop&crop=center",
             isUpcoming: false
         },
         {
@@ -92,7 +92,7 @@ export default function EventsPage() {
             title: "Mobile App Development Workshop",
             description: "Learn React Native and Flutter for cross-platform mobile development. Build a complete app from scratch.",
             date: "2024-01-10T14:00:00Z",
-            image: null,
+            image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=250&fit=crop&crop=center",
             isUpcoming: false
         },
         {
@@ -100,7 +100,7 @@ export default function EventsPage() {
             title: "Data Structures & Algorithms Contest",
             description: "Competitive programming contest with 50+ participants. Problems ranging from beginner to advanced levels.",
             date: "2024-01-05T09:00:00Z",
-            image: null,
+            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop&crop=center",
             isUpcoming: false
         }
     ];
@@ -159,14 +159,30 @@ export default function EventsPage() {
                         {upcomingEvents.length > 0 ? (
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                                 {upcomingEvents.map((event) => (
-                                    <Card key={event.id} className="hover:shadow-lg border border-orange-800 transition-all duration-300 hover:scale-[1.02]  shadow-md">
-                                        <CardHeader className="p-4 sm:p-5 md:p-6">
-                                            <div className="flex items-start justify-between mb-3">
-                                                <Badge variant={isEventSoon(event.date) ? "destructive" : "secondary"} className="text-xs sm:text-sm px-2 py-1">
-                                                    {isEventSoon(event.date) ? "Soon" : "Upcoming"}
-                                                </Badge>
-                                                <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 flex-shrink-0" />
+                                    <Card key={event.id} className="hover:shadow-lg border border-orange-800 transition-all duration-300 hover:scale-[1.02]  shadow-md overflow-hidden">
+                                        {event.image && (
+                                            <div className="relative h-48 sm:h-52 md:h-56">
+                                                <img
+                                                    src={event.image}
+                                                    alt={event.title}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                                <div className="absolute top-3 right-3">
+                                                    <Badge variant={isEventSoon(event.date) ? "destructive" : "secondary"} className="text-xs sm:text-sm px-2 py-1">
+                                                        {isEventSoon(event.date) ? "Soon" : "Upcoming"}
+                                                    </Badge>
+                                                </div>
                                             </div>
+                                        )}
+                                        <CardHeader className="p-4 sm:p-5 md:p-6">
+                                            {!event.image && (
+                                                <div className="flex items-start justify-between mb-3">
+                                                    <Badge variant={isEventSoon(event.date) ? "destructive" : "secondary"} className="text-xs sm:text-sm px-2 py-1">
+                                                        {isEventSoon(event.date) ? "Soon" : "Upcoming"}
+                                                    </Badge>
+                                                    <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 flex-shrink-0" />
+                                                </div>
+                                            )}
                                             <CardTitle className="text-responsive-lg text-gray-900 leading-tight mb-2">{event.title}</CardTitle>
                                             <CardDescription className="text-responsive-sm text-gray-500 flex items-center">
                                                 <Clock className="h-3 w-3 sm:h-4 sm:w-4 mr-2 flex-shrink-0" />
@@ -221,12 +237,26 @@ export default function EventsPage() {
                         {pastEvents.length > 0 ? (
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                                 {pastEvents.map((event) => (
-                                    <Card key={event.id} className="hover:shadow-lg border border-orange-800 transition-all duration-300 hover:scale-[1.02]  shadow-md">
-                                        <CardHeader className="p-4 sm:p-5 md:p-6">
-                                            <div className="flex items-start justify-between mb-3">
-                                                <Badge variant="outline" className="text-xs sm:text-sm px-2 py-1">Completed</Badge>
-                                                <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 flex-shrink-0" />
+                                    <Card key={event.id} className="hover:shadow-lg border border-orange-800 transition-all duration-300 hover:scale-[1.02]  shadow-md overflow-hidden">
+                                        {event.image && (
+                                            <div className="relative h-48 sm:h-52 md:h-56">
+                                                <img
+                                                    src={event.image}
+                                                    alt={event.title}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                                <div className="absolute top-3 right-3">
+                                                    <Badge variant="outline" className="text-xs sm:text-sm px-2 py-1 bg-white">Completed</Badge>
+                                                </div>
                                             </div>
+                                        )}
+                                        <CardHeader className="p-4 sm:p-5 md:p-6">
+                                            {!event.image && (
+                                                <div className="flex items-start justify-between mb-3">
+                                                    <Badge variant="outline" className="text-xs sm:text-sm px-2 py-1">Completed</Badge>
+                                                    <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 flex-shrink-0" />
+                                                </div>
+                                            )}
                                             <CardTitle className="text-responsive-lg text-gray-900 leading-tight mb-2">{event.title}</CardTitle>
                                             <CardDescription className="text-responsive-sm text-gray-500 flex items-center">
                                                 <Clock className="h-3 w-3 sm:h-4 sm:w-4 mr-2 flex-shrink-0" />
