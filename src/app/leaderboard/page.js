@@ -14,37 +14,6 @@ export default function LeaderboardPage() {
     const [students, setStudents] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetchStudents();
-    }, [fetchStudents]);
-
-    const fetchStudents = useCallback(async () => {
-        try {
-            const response = await fetch('/api/students?approved=true');
-            if (response.ok) {
-                const data = await response.json();
-                // Simulate points based on skills and activity
-                const studentsWithPoints = data.map(student => ({
-                    ...student,
-                    points: Math.floor(Math.random() * 1000) + 100,
-                    eventsAttended: Math.floor(Math.random() * 20) + 1,
-                    projectsCompleted: Math.floor(Math.random() * 10) + 1
-                }));
-
-                // Sort by points
-                studentsWithPoints.sort((a, b) => b.points - a.points);
-                setStudents(studentsWithPoints);
-            } else {
-                setStudents(getFallbackLeaderboard());
-            }
-        } catch (error) {
-            console.error('Error fetching students:', error);
-            setStudents(getFallbackLeaderboard());
-        } finally {
-            setLoading(false);
-        }
-    }, []);
-
     const getFallbackLeaderboard = () => [
         {
             id: 1,
@@ -92,6 +61,37 @@ export default function LeaderboardPage() {
             skills: ["Python", "Network Security", "Ethical Hacking", "Linux"]
         }
     ];
+
+    const fetchStudents = useCallback(async () => {
+        try {
+            const response = await fetch('/api/students?approved=true');
+            if (response.ok) {
+                const data = await response.json();
+                // Simulate points based on skills and activity
+                const studentsWithPoints = data.map(student => ({
+                    ...student,
+                    points: Math.floor(Math.random() * 1000) + 100,
+                    eventsAttended: Math.floor(Math.random() * 20) + 1,
+                    projectsCompleted: Math.floor(Math.random() * 10) + 1
+                }));
+
+                // Sort by points
+                studentsWithPoints.sort((a, b) => b.points - a.points);
+                setStudents(studentsWithPoints);
+            } else {
+                setStudents(getFallbackLeaderboard());
+            }
+        } catch (error) {
+            console.error('Error fetching students:', error);
+            setStudents(getFallbackLeaderboard());
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        fetchStudents();
+    }, [fetchStudents]);
 
     const getRankIcon = (index) => {
         switch (index) {
