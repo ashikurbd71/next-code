@@ -18,13 +18,8 @@ export default function Committee() {
             const response = await fetch('/api/committee');
             if (response.ok) {
                 const data = await response.json();
-                // Sort by order field, then by createdAt as fallback
-                const sortedData = data.sort((a, b) => {
-                    if (a.order !== b.order) {
-                        return (a.order || 0) - (b.order || 0);
-                    }
-                    return new Date(a.createdAt) - new Date(b.createdAt);
-                });
+                // Sort by order field only
+                const sortedData = data.sort((a, b) => (a.order || 0) - (b.order || 0));
                 setMembers(sortedData);
             } else {
                 // Fallback data if API fails

@@ -70,11 +70,11 @@ export default function Footer() {
                                 <span className="text-gray-900 text-xs sm:text-sm">contact@nextcode.com</span>
                             </div>
                             <div className="flex items-center space-x-2 sm:space-x-3">
-                                <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-orange-400 flex-shrink-0" />
+                                <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-orange-800 flex-shrink-0" />
                                 <span className="text-gray-900 text-xs sm:text-sm">01581782193</span>
                             </div>
                             <div className="flex items-center space-x-2 sm:space-x-3">
-                                <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400 flex-shrink-0" />
+                                <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-orange-800 flex-shrink-0" />
                                 <span className="text-gray-900 text-xs sm:text-sm">Rangpur Ideal Institute and Technology, Rangpur</span>
                             </div>
                         </div>
