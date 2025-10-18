@@ -158,61 +158,108 @@ export default function EventsPage() {
                         </div>
 
                         {upcomingEvents.length > 0 ? (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
                                 {upcomingEvents.map((event) => (
-                                    <Card key={event.id} className="hover:shadow-lg border border-orange-800 transition-all duration-300 hover:scale-[1.02]  shadow-md overflow-hidden">
+                                    <Card key={event.id} variant="elevated" className="group relative overflow-hidden hover:scale-[1.02] transition-all duration-500">
+                                        {/* Image Section with Enhanced Gradient Overlay */}
                                         {event.image && (
-                                            <div className="relative h-48 sm:h-52 md:h-56">
+                                            <div className="relative h-56 sm:h-60 md:h-64 overflow-hidden">
                                                 <Image
                                                     src={event.image}
                                                     alt={event.title}
                                                     fill
-                                                    className="object-cover"
+                                                    className="object-cover transition-transform duration-700 group-hover:scale-110"
                                                 />
-                                                <div className="absolute top-3 right-3">
-                                                    <Badge variant={isEventSoon(event.date) ? "destructive" : "secondary"} className="text-xs sm:text-sm px-2 py-1">
-                                                        {isEventSoon(event.date) ? "Soon" : "Upcoming"}
+                                                {/* Enhanced Gradient Overlay */}
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+
+                                                {/* Status Badge with Enhanced Design */}
+                                                <div className="absolute top-4 right-4">
+                                                    <Badge
+                                                        variant={isEventSoon(event.date) ? "destructive" : "secondary"}
+                                                        className="text-xs font-bold px-4 py-2 bg-white/95 backdrop-blur-md border-0 shadow-xl rounded-full"
+                                                    >
+                                                        {isEventSoon(event.date) ? "🔥 Soon" : "📅 Upcoming"}
                                                     </Badge>
+                                                </div>
+
+                                                {/* Event Title Overlay with Better Typography */}
+                                                <div className="absolute bottom-4 left-4 right-4">
+                                                    <h3 className="text-white font-bold text-lg sm:text-xl leading-tight drop-shadow-2xl">
+                                                        {event.title}
+                                                    </h3>
                                                 </div>
                                             </div>
                                         )}
-                                        <CardHeader className="p-4 sm:p-5 md:p-6">
+
+                                        {/* Content Section with Enhanced Layout */}
+                                        <div className="p-6">
+                                            {/* Header for events without images */}
                                             {!event.image && (
-                                                <div className="flex items-start justify-between mb-3">
-                                                    <Badge variant={isEventSoon(event.date) ? "destructive" : "secondary"} className="text-xs sm:text-sm px-2 py-1">
-                                                        {isEventSoon(event.date) ? "Soon" : "Upcoming"}
+                                                <div className="flex items-start justify-between mb-4">
+                                                    <Badge
+                                                        variant={isEventSoon(event.date) ? "destructive" : "secondary"}
+                                                        className="text-xs font-bold px-4 py-2 rounded-full"
+                                                    >
+                                                        {isEventSoon(event.date) ? "🔥 Soon" : "📅 Upcoming"}
                                                     </Badge>
-                                                    <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 flex-shrink-0" />
+                                                    <Calendar className="h-5 w-5 text-orange-600" />
                                                 </div>
                                             )}
-                                            <CardTitle className="text-responsive-lg text-gray-900 leading-tight mb-2">{event.title}</CardTitle>
-                                            <CardDescription className="text-responsive-sm text-gray-500 flex items-center">
-                                                <Clock className="h-3 w-3 sm:h-4 sm:w-4 mr-2 flex-shrink-0" />
-                                                <span className="truncate">{formatDate(event.date)}</span>
-                                            </CardDescription>
-                                        </CardHeader>
-                                        <CardContent className="p-4 sm:p-5 md:p-6 pt-0">
-                                            <p className="text-gray-600 mb-4 text-responsive-sm leading-relaxed line-clamp-3">{event.description}</p>
+
+                                            {/* Title for events without images */}
+                                            {!event.image && (
+                                                <CardTitle className="text-xl font-bold text-gray-900 leading-tight mb-3 group-hover:text-orange-800 transition-colors duration-300">
+                                                    {event.title}
+                                                </CardTitle>
+                                            )}
+
+                                            {/* Enhanced Date and Time Section */}
+                                            <div className="flex items-center text-gray-600 mb-4 bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-4 border border-orange-100">
+                                                <div className="flex items-center justify-center w-10 h-10 bg-orange-100 rounded-full mr-3">
+                                                    <Clock className="h-5 w-5 text-orange-600" />
+                                                </div>
+                                                <div>
+                                                    <span className="text-sm font-semibold text-gray-800 block">{formatDate(event.date)}</span>
+                                                    <span className="text-xs text-gray-500">Event Date & Time</span>
+                                                </div>
+                                            </div>
+
+                                            {/* Enhanced Description */}
+                                            <div className="mb-6">
+                                                <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">
+                                                    {event.description}
+                                                </p>
+                                            </div>
+
+                                            {/* Enhanced Action Button */}
                                             {event.registrationLink ? (
-                                                <Button asChild className="w-full text-responsive-sm py-2 sm:py-3 font-medium bg-orange-800 text-white">
+                                                <Button asChild className="w-full bg-gradient-to-r from-orange-500 via-orange-600 to-red-600 hover:from-orange-600 hover:via-orange-700 hover:to-red-700 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-[1.02]">
                                                     <a
                                                         href={event.registrationLink}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="flex items-center bg-orange-800 text-white justify-center gap-2"
+                                                        className="flex items-center justify-center gap-2"
                                                     >
-                                                        Register Now
-                                                        <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4" />
+                                                        <span>Register Now</span>
+                                                        <ExternalLink className="h-4 w-4" />
                                                     </a>
                                                 </Button>
                                             ) : (
-                                                <Button asChild className="w-full text-responsive-sm py-2 sm:py-3 font-medium bg-orange-800 text-white">
-                                                    <a href={`/register/${event.id}`}>
-                                                        Register for Event
+                                                <Button asChild className="w-full bg-gradient-to-r from-orange-500 via-orange-600 to-red-600 hover:from-orange-600 hover:via-orange-700 hover:to-red-700 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-[1.02]">
+                                                    <a href={`/register/${event.id}`} className="flex items-center justify-center gap-2">
+                                                        <span>Register for Event</span>
+                                                        <ExternalLink className="h-4 w-4" />
                                                     </a>
                                                 </Button>
                                             )}
-                                        </CardContent>
+                                        </div>
+
+                                        {/* Enhanced Decorative Elements */}
+                                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 via-orange-500 to-red-500"></div>
+
+                                        {/* Subtle corner accent */}
+                                        <div className="absolute top-4 left-4 w-2 h-2 bg-orange-400 rounded-full opacity-60"></div>
                                     </Card>
                                 ))}
                             </div>
@@ -237,38 +284,91 @@ export default function EventsPage() {
                         </div>
 
                         {pastEvents.length > 0 ? (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
                                 {pastEvents.map((event) => (
-                                    <Card key={event.id} className="hover:shadow-lg border border-orange-800 transition-all duration-300 hover:scale-[1.02]  shadow-md overflow-hidden">
+                                    <Card key={event.id} variant="elevated" className="group relative overflow-hidden hover:scale-[1.02] transition-all duration-500 opacity-90 hover:opacity-100">
+                                        {/* Image Section with Enhanced Gradient Overlay */}
                                         {event.image && (
-                                            <div className="relative h-48 sm:h-52 md:h-56">
+                                            <div className="relative h-56 sm:h-60 md:h-64 overflow-hidden">
                                                 <Image
                                                     src={event.image}
                                                     alt={event.title}
                                                     fill
-                                                    className="object-cover"
+                                                    className="object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
                                                 />
-                                                <div className="absolute top-3 right-3">
-                                                    <Badge variant="outline" className="text-xs sm:text-sm px-2 py-1 bg-white">Completed</Badge>
+                                                {/* Enhanced Gradient Overlay */}
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+
+                                                {/* Status Badge with Enhanced Design */}
+                                                <div className="absolute top-4 right-4">
+                                                    <Badge
+                                                        variant="outline"
+                                                        className="text-xs font-bold px-4 py-2 bg-white/95 backdrop-blur-md border-green-500 text-green-700 shadow-xl rounded-full"
+                                                    >
+                                                        ✅ Completed
+                                                    </Badge>
+                                                </div>
+
+                                                {/* Event Title Overlay with Better Typography */}
+                                                <div className="absolute bottom-4 left-4 right-4">
+                                                    <h3 className="text-white font-bold text-lg sm:text-xl leading-tight drop-shadow-2xl">
+                                                        {event.title}
+                                                    </h3>
                                                 </div>
                                             </div>
                                         )}
-                                        <CardHeader className="p-4 sm:p-5 md:p-6">
+
+                                        {/* Content Section with Enhanced Layout */}
+                                        <div className="p-6">
+                                            {/* Header for events without images */}
                                             {!event.image && (
-                                                <div className="flex items-start justify-between mb-3">
-                                                    <Badge variant="outline" className="text-xs sm:text-sm px-2 py-1">Completed</Badge>
-                                                    <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 flex-shrink-0" />
+                                                <div className="flex items-start justify-between mb-4">
+                                                    <Badge
+                                                        variant="outline"
+                                                        className="text-xs font-bold px-4 py-2 border-green-500 text-green-700 rounded-full"
+                                                    >
+                                                        ✅ Completed
+                                                    </Badge>
+                                                    <Calendar className="h-5 w-5 text-gray-400" />
                                                 </div>
                                             )}
-                                            <CardTitle className="text-responsive-lg text-gray-900 leading-tight mb-2">{event.title}</CardTitle>
-                                            <CardDescription className="text-responsive-sm text-gray-500 flex items-center">
-                                                <Clock className="h-3 w-3 sm:h-4 sm:w-4 mr-2 flex-shrink-0" />
-                                                <span className="truncate">{formatDate(event.date)}</span>
-                                            </CardDescription>
-                                        </CardHeader>
-                                        <CardContent className="p-4 sm:p-5 md:p-6 pt-0">
-                                            <p className="text-gray-600 text-responsive-sm leading-relaxed line-clamp-3">{event.description}</p>
-                                        </CardContent>
+
+                                            {/* Title for events without images */}
+                                            {!event.image && (
+                                                <CardTitle className="text-xl font-bold text-gray-900 leading-tight mb-3 group-hover:text-gray-700 transition-colors duration-300">
+                                                    {event.title}
+                                                </CardTitle>
+                                            )}
+
+                                            {/* Enhanced Date and Time Section */}
+                                            <div className="flex items-center text-gray-600 mb-4 bg-gradient-to-r from-gray-50 to-slate-50 rounded-xl p-4 border border-gray-100">
+                                                <div className="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full mr-3">
+                                                    <Clock className="h-5 w-5 text-gray-500" />
+                                                </div>
+                                                <div>
+                                                    <span className="text-sm font-semibold text-gray-800 block">{formatDate(event.date)}</span>
+                                                    <span className="text-xs text-gray-500">Event Date & Time</span>
+                                                </div>
+                                            </div>
+
+                                            {/* Enhanced Description */}
+                                            <div className="mb-6">
+                                                <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">
+                                                    {event.description}
+                                                </p>
+                                            </div>
+
+                                            {/* View Details Button */}
+                                            <Button className="w-full bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-[1.02]">
+                                                View Details
+                                            </Button>
+                                        </div>
+
+                                        {/* Enhanced Decorative Elements */}
+                                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gray-400 via-gray-500 to-gray-600"></div>
+
+                                        {/* Subtle corner accent */}
+                                        <div className="absolute top-4 left-4 w-2 h-2 bg-gray-400 rounded-full opacity-60"></div>
                                     </Card>
                                 ))}
                             </div>

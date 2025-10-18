@@ -87,7 +87,7 @@ export default function EventManagement({
                         </DialogHeader>
                         <form onSubmit={onSubmitForm} className="space-y-4">
                             <div>
-                                <Label htmlFor="title">Event Title</Label>
+                                <Label className='pb-2' htmlFor="title">Event Title</Label>
                                 <Input
                                     id="title"
                                     value={formData.title || ''}
@@ -96,7 +96,7 @@ export default function EventManagement({
                                 />
                             </div>
                             <div>
-                                <Label htmlFor="description">Description</Label>
+                                <Label className='pb-2' htmlFor="description">Description</Label>
                                 <Textarea
                                     id="description"
                                     value={formData.description || ''}
@@ -105,7 +105,7 @@ export default function EventManagement({
                                 />
                             </div>
                             <div>
-                                <Label htmlFor="date">Event Date</Label>
+                                <Label className='pb-2' htmlFor="date">Event Date</Label>
                                 <Input
                                     id="date"
                                     type="datetime-local"
@@ -115,7 +115,7 @@ export default function EventManagement({
                                 />
                             </div>
                             <div>
-                                <Label htmlFor="isUpcoming">Event Status</Label>
+                                <Label className='pb-2' htmlFor="isUpcoming">Event Status</Label>
                                 <Select
                                     value={formData.isUpcoming ? 'true' : 'false'}
                                     onValueChange={(value) => setFormData({ ...formData, isUpcoming: value === 'true' })}
@@ -130,7 +130,7 @@ export default function EventManagement({
                                 </Select>
                             </div>
                             <div>
-                                <Label htmlFor="registrationLink">Registration Link (Optional)</Label>
+                                <Label className='pb-2' htmlFor="registrationLink">Registration Link (Optional)</Label>
                                 <Input
                                     id="registrationLink"
                                     value={formData.registrationLink || ''}
@@ -139,7 +139,7 @@ export default function EventManagement({
                                 />
                             </div>
                             <div>
-                                <Label htmlFor="image">Event Image (Optional)</Label>
+                                <Label className='pb-2' htmlFor="image">Event Image (Optional)</Label>
                                 <div className="space-y-3">
                                     {imagePreview ? (
                                         <div className="relative inline-block">

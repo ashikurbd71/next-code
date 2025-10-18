@@ -100,26 +100,37 @@ export default function Testimonials() {
                 </div>
 
                 <div className="max-w-4xl mx-auto">
-                    <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-6 sm:p-8 lg:p-12 relative overflow-hidden">
-                        {/* Quote Icon */}
-                        <div className="absolute top-4 sm:top-6 lg:top-8 left-4 sm:left-6 lg:left-8 text-blue-200">
+                    <div className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 rounded-3xl p-6 sm:p-8 lg:p-12 relative overflow-hidden shadow-xl border border-white/20">
+                        {/* Enhanced Quote Icon */}
+                        <div className="absolute top-4 sm:top-6 lg:top-8 left-4 sm:left-6 lg:left-8 text-blue-200/60">
                             <Quote className="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12" />
                         </div>
+
+                        {/* Decorative elements */}
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-200/20 to-pink-200/20 rounded-full -translate-y-16 translate-x-16"></div>
+                        <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-blue-200/20 to-purple-200/20 rounded-full translate-y-12 -translate-x-12"></div>
 
                         {/* Testimonial Content */}
                         <div className="text-center relative z-10">
                             <div className="mb-6 sm:mb-8">
-                                <Avatar className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6">
-                                    <AvatarImage src={testimonials[currentIndex]?.photo} alt={testimonials[currentIndex]?.name} />
-                                    <AvatarFallback className="text-lg sm:text-xl font-semibold bg-orange-100 text-orange-800">
-                                        {testimonials[currentIndex]?.name ? testimonials[currentIndex]?.name?.split(' ').map((n) => n[0]).join('') : 'NC'}
-                                    </AvatarFallback>
-                                </Avatar>
+                                <div className="relative inline-block">
+                                    <Avatar className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 ring-4 ring-white/50 shadow-lg">
+                                        <AvatarImage src={testimonials[currentIndex]?.photo} alt={testimonials[currentIndex]?.name} />
+                                        <AvatarFallback className="text-lg sm:text-xl font-semibold bg-gradient-to-br from-orange-100 to-pink-100 text-orange-800">
+                                            {testimonials[currentIndex]?.name ? testimonials[currentIndex]?.name?.split(' ').map((n) => n[0]).join('') : 'NC'}
+                                        </AvatarFallback>
+                                    </Avatar>
 
-                                <h3 className="text-lg sm:text-xl lg:text-xl font-semibold text-gray-900 mb-1 sm:mb-2">
+                                    {/* Verified badge */}
+                                    <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                                        <span className="text-white text-xs">✓</span>
+                                    </div>
+                                </div>
+
+                                <h3 className="text-lg sm:text-xl lg:text-xl font-bold text-gray-900 mb-1 sm:mb-2">
                                     {testimonials[currentIndex]?.name || 'Anonymous'}
                                 </h3>
-                                <p className="text-orange-800 font-medium mb-1 text-sm sm:text-base lg:text-lg">
+                                <p className="text-orange-800 font-semibold mb-1 text-sm sm:text-base lg:text-lg">
                                     {testimonials[currentIndex]?.role || 'Student'}
                                 </p>
                                 <p className="text-gray-500 text-xs sm:text-sm">
@@ -127,28 +138,30 @@ export default function Testimonials() {
                                 </p>
                             </div>
 
-                            <blockquote className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed italic mb-6 sm:mb-8 px-2">
+                            <blockquote className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed italic mb-6 sm:mb-8 px-2 bg-white/50 rounded-xl p-4 border border-white/30">
                                 "{testimonials[currentIndex]?.content || 'Great experience with NextCode!'}"
                             </blockquote>
                         </div>
 
-                        {/* Navigation */}
-                        <div className="flex justify-center items-center space-x-3 sm:space-x-4">
+                        {/* Enhanced Navigation */}
+                        <div className="flex justify-center items-center space-x-4 sm:space-x-6">
                             <button
                                 onClick={prevTestimonial}
-                                className="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-shadow"
+                                className="p-3 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border border-white/20"
                                 aria-label="Previous testimonial"
                             >
                                 <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6 text-gray-600" />
                             </button>
 
-                            {/* Dots Indicator */}
-                            <div className="flex space-x-2">
+                            {/* Enhanced Dots Indicator */}
+                            <div className="flex space-x-3">
                                 {testimonials.map((_, index) => (
                                     <button
                                         key={index}
                                         onClick={() => setCurrentIndex(index)}
-                                        className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-colors ${index === currentIndex ? 'bg-orange-800' : 'bg-gray-300'
+                                        className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full transition-all duration-300 ${index === currentIndex
+                                            ? 'bg-gradient-to-r from-orange-500 to-pink-500 shadow-lg scale-125'
+                                            : 'bg-gray-300 hover:bg-gray-400'
                                             }`}
                                         aria-label={`Go to testimonial ${index + 1}`}
                                     />
@@ -157,7 +170,7 @@ export default function Testimonials() {
 
                             <button
                                 onClick={nextTestimonial}
-                                className="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-shadow"
+                                className="p-3 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 border border-white/20"
                                 aria-label="Next testimonial"
                             >
                                 <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6 text-gray-600" />

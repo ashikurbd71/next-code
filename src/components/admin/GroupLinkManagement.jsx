@@ -194,7 +194,7 @@ export default function GroupLinkManagement() {
                         </DialogHeader>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
-                                <Label htmlFor="eventId">Event *</Label>
+                                <Label className='pb-2' htmlFor="eventId">Event *</Label>
                                 <Select
                                     value={formData.eventId}
                                     onValueChange={(value) => setFormData(prev => ({ ...prev, eventId: value }))}
@@ -213,7 +213,7 @@ export default function GroupLinkManagement() {
                             </div>
 
                             <div>
-                                <Label htmlFor="title">Title *</Label>
+                                <Label className='pb-2' htmlFor="title">Title *</Label>
                                 <Input
                                     id="title"
                                     value={formData.title}
@@ -223,7 +223,7 @@ export default function GroupLinkManagement() {
                             </div>
 
                             <div>
-                                <Label htmlFor="description">Description</Label>
+                                <Label className='pb-2' htmlFor="description">Description</Label>
                                 <Textarea
                                     id="description"
                                     value={formData.description}
@@ -234,7 +234,7 @@ export default function GroupLinkManagement() {
                             </div>
 
                             <div>
-                                <Label htmlFor="url">Group URL *</Label>
+                                <Label className='pb-2' htmlFor="url">Group URL *</Label>
                                 <Input
                                     id="url"
                                     value={formData.url}
@@ -245,7 +245,7 @@ export default function GroupLinkManagement() {
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <Label htmlFor="platform">Platform</Label>
+                                    <Label className='pb-2' htmlFor="platform">Platform</Label>
                                     <Select
                                         value={formData.platform}
                                         onValueChange={(value) => setFormData(prev => ({ ...prev, platform: value }))}
@@ -263,7 +263,7 @@ export default function GroupLinkManagement() {
                                 </div>
 
                                 <div>
-                                    <Label htmlFor="maxMembers">Max Members</Label>
+                                    <Label className='pb-2' htmlFor="maxMembers">Max Members</Label>
                                     <Input
                                         id="maxMembers"
                                         type="number"
@@ -275,7 +275,7 @@ export default function GroupLinkManagement() {
                             </div>
 
                             <div>
-                                <Label htmlFor="joinCode">Join Code</Label>
+                                <Label className='pb-2' htmlFor="joinCode">Join Code</Label>
                                 <Input
                                     id="joinCode"
                                     value={formData.joinCode}

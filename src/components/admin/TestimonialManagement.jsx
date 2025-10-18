@@ -80,7 +80,7 @@ export default function TestimonialManagement({
                         </DialogHeader>
                         <form onSubmit={onSubmitForm} className="space-y-4">
                             <div>
-                                <Label htmlFor="name">Student Name</Label>
+                                <Label className='pb-2' htmlFor="name">Student Name</Label>
                                 <Input
                                     id="name"
                                     value={formData.name || ''}
@@ -89,7 +89,7 @@ export default function TestimonialManagement({
                                 />
                             </div>
                             <div>
-                                <Label htmlFor="role">Current Role/Position</Label>
+                                <Label className='pb-2' htmlFor="role">Current Role/Position</Label>
                                 <Input
                                     id="role"
                                     value={formData.role || ''}
@@ -98,7 +98,7 @@ export default function TestimonialManagement({
                                 />
                             </div>
                             <div>
-                                <Label htmlFor="department">Department</Label>
+                                <Label className='pb-2' htmlFor="department">Department</Label>
                                 <Input
                                     id="department"
                                     value={formData.department || ''}
@@ -107,7 +107,7 @@ export default function TestimonialManagement({
                                 />
                             </div>
                             <div>
-                                <Label htmlFor="content">Testimonial Content</Label>
+                                <Label className='pb-2' htmlFor="content">Testimonial Content</Label>
                                 <Textarea
                                     id="content"
                                     value={formData.content || ''}
@@ -117,7 +117,7 @@ export default function TestimonialManagement({
                                 />
                             </div>
                             <div>
-                                <Label htmlFor="isActive">Status</Label>
+                                <Label className='pb-2' htmlFor="isActive">Status</Label>
                                 <Select
                                     value={formData.isActive ? 'true' : 'false'}
                                     onValueChange={(value) => setFormData({ ...formData, isActive: value === 'true' })}
@@ -132,7 +132,7 @@ export default function TestimonialManagement({
                                 </Select>
                             </div>
                             <div>
-                                <Label htmlFor="photo">Student Photo (Optional)</Label>
+                                <Label className='pb-2' htmlFor="photo">Student Photo (Optional)</Label>
                                 <div className="space-y-3">
                                     {imagePreview ? (
                                         <div className="relative inline-block">

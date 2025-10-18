@@ -19,16 +19,16 @@ export default function Footer() {
                             competitions, and collaborative projects. Join our community of passionate developers.
                         </p>
                         <div className="flex space-x-3 sm:space-x-4">
-                            <a href="#" className="text-gray-900 hover:text-white transition-colors">
+                            <a href="#" className="text-gray-900 hover:text-orange-800 transition-colors">
                                 <Github className="h-5 w-5 sm:h-6 sm:w-6" />
                             </a>
-                            <a href="#" className="text-gray-900 hover:text-white transition-colors">
+                            <a href="#" className="text-gray-900 hover:text-orange-800 transition-colors">
                                 <Twitter className="h-5 w-5 sm:h-6 sm:w-6" />
                             </a>
-                            <a href="#" className="text-gray-900 hover:text-white transition-colors">
+                            <a href="#" className="text-gray-900 hover:text-orange-800 transition-colors">
                                 <Linkedin className="h-5 w-5 sm:h-6 sm:w-6" />
                             </a>
-                            <a href="#" className="text-gray-900 hover:text-white transition-colors">
+                            <a href="#" className="text-gray-900 hover:text-orange-800 transition-colors">
                                 <Instagram className="h-5 w-5 sm:h-6 sm:w-6" />
                             </a>
                         </div>
@@ -39,22 +39,22 @@ export default function Footer() {
                         <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Quick Links</h3>
                         <ul className="space-y-2">
                             <li>
-                                <Link href="/" className="text-gray-900 hover:text-white transition-colors text-sm sm:text-base">
+                                <Link href="/" className="text-gray-900 hover:text-orange-800 transition-colors text-sm sm:text-base">
                                     Home
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/events" className="text-gray-900 hover:text-white transition-colors text-sm sm:text-base">
+                                <Link href="/events" className="text-gray-900 hover:text-orange-800 transition-colors text-sm sm:text-base">
                                     Events
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/talent" className="text-gray-900 hover:text-white transition-colors text-sm sm:text-base">
+                                <Link href="/talent" className="text-gray-900 hover:text-orange-800 transition-colors text-sm sm:text-base">
                                     Our Talent
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/join" className="text-gray-900 hover:text-white transition-colors text-sm sm:text-base">
+                                <Link href="/join" className="text-gray-900 hover:text-orange-800 transition-colors text-sm sm:text-base">
                                     Join Now
                                 </Link>
                             </li>
@@ -66,11 +66,11 @@ export default function Footer() {
                         <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Contact Us</h3>
                         <div className="space-y-2 sm:space-y-3">
                             <div className="flex items-center space-x-2 sm:space-x-3">
-                                <Mail className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400 flex-shrink-0" />
+                                <Mail className="h-4 w-4 sm:h-5 sm:w-5 text-orange-400 flex-shrink-0" />
                                 <span className="text-gray-900 text-xs sm:text-sm">contact@nextcode.com</span>
                             </div>
                             <div className="flex items-center space-x-2 sm:space-x-3">
-                                <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400 flex-shrink-0" />
+                                <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-orange-400 flex-shrink-0" />
                                 <span className="text-gray-900 text-xs sm:text-sm">01581782193</span>
                             </div>
                             <div className="flex items-center space-x-2 sm:space-x-3">
@@ -88,10 +88,10 @@ export default function Footer() {
                             © {currentYear} Next<span className='text-orange-800'>Code</span>. All rights reserved.
                         </p>
                         <div className="flex space-x-4 sm:space-x-6">
-                            <Link href="/privacy" className="text-gray-900 hover:text-white text-xs sm:text-sm transition-colors">
+                            <Link href="/privacy" className="text-gray-900 hover:text-orange-800 text-xs sm:text-sm transition-colors">
                                 Privacy Policy
                             </Link>
-                            <Link href="/terms" className="text-gray-900 hover:text-white text-xs sm:text-sm transition-colors">
+                            <Link href="/terms" className="text-gray-900 hover:text-orange-800 text-xs sm:text-sm transition-colors">
                                 Terms of Service
                             </Link>
                         </div>

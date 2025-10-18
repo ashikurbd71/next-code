@@ -31,6 +31,23 @@ export const Committee = new EntitySchema({
             type: 'varchar',
             nullable: true
         },
+        facebookLink: {
+            type: 'varchar',
+            nullable: true
+        },
+        semester: {
+            type: 'varchar',
+            nullable: true
+        },
+        department: {
+            type: 'varchar',
+            nullable: true
+        },
+        order: {
+            type: 'int',
+            nullable: true,
+            default: 0
+        },
         createdAt: {
             type: 'timestamp',
             default: () => 'CURRENT_TIMESTAMP'

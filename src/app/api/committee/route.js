@@ -10,7 +10,7 @@ export async function GET() {
         const committeeRepository = dataSource.getRepository(Committee);
 
         const members = await committeeRepository.find({
-            order: { createdAt: 'ASC' }
+            order: { order: 'ASC', createdAt: 'ASC' }
         });
 
         return NextResponse.json(members);
@@ -27,7 +27,7 @@ export async function POST(request) {
         const committeeRepository = dataSource.getRepository(Committee);
 
         const body = await request.json();
-        const { name, designation, photo, bio, email, linkedin } = body;
+        const { name, designation, photo, bio, email, linkedin, facebookLink, semester, department, order } = body;
 
         const member = committeeRepository.create({
             name,
@@ -35,7 +35,11 @@ export async function POST(request) {
             photo,
             bio,
             email,
-            linkedin
+            linkedin,
+            facebookLink,
+            semester,
+            department,
+            order: order || 0
         });
 
         const savedMember = await committeeRepository.save(member);
