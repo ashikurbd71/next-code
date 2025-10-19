@@ -22,16 +22,28 @@ export default function Committee() {
                 const data = await response.json();
                 // Sort by order field only
                 const sortedData = data.sort((a, b) => (a.order || 0) - (b.order || 0));
-                const advisor = sortedData.filter(member => member.designation.toLowerCase().includes('advisor'));
-                setMembers(sortedData);
+                const advisor = sortedData.filter(member =>
+                    member.designation && member.designation.toLowerCase().includes('advisor')
+                ).sort((a, b) => (a.order || 0) - (b.order || 0));
+                const membersOnly = sortedData.filter(member =>
+                    !member.designation ||
+                    !member.designation.toLowerCase().includes('advisor')
+                ).sort((a, b) => (a.order || 0) - (b.order || 0));
+                setMembers(membersOnly);
                 setAdvisers(advisor);
             } else {
                 // Fallback data if API fails
                 const fallbackData = getFallbackMembers();
                 // Sort fallback data by order
                 const sortedFallback = fallbackData.sort((a, b) => (a.order || 0) - (b.order || 0));
-                const advisor = sortedFallback.filter(member => member.designation.toLowerCase().includes('advisor'));
-                setMembers(sortedFallback);
+                const advisor = sortedFallback.filter(member =>
+                    member.designation && member.designation.toLowerCase().includes('advisor')
+                ).sort((a, b) => (a.order || 0) - (b.order || 0));
+                const membersOnly = sortedFallback.filter(member =>
+                    !member.designation ||
+                    !member.designation.toLowerCase().includes('advisor')
+                ).sort((a, b) => (a.order || 0) - (b.order || 0));
+                setMembers(membersOnly);
                 setAdvisers(advisor);
             }
         } catch (error) {
@@ -39,8 +51,14 @@ export default function Committee() {
             const fallbackData = getFallbackMembers();
             // Sort fallback data by order
             const sortedFallback = fallbackData.sort((a, b) => (a.order || 0) - (b.order || 0));
-            const advisor = sortedFallback.filter(member => member.designation.toLowerCase().includes('advisor'));
-            setMembers(sortedFallback);
+            const advisor = sortedFallback.filter(member =>
+                member.designation && member.designation.toLowerCase().includes('advisor')
+            ).sort((a, b) => (a.order || 0) - (b.order || 0));
+            const membersOnly = sortedFallback.filter(member =>
+                !member.designation ||
+                !member.designation.toLowerCase().includes('advisor')
+            ).sort((a, b) => (a.order || 0) - (b.order || 0));
+            setMembers(membersOnly);
             setAdvisers(advisor);
         } finally {
             setLoading(false);
