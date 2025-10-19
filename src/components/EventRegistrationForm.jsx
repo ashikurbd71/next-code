@@ -217,7 +217,7 @@ export default function EventRegistrationForm({ event, onRegistrationSuccess }) 
 
     return (
         <div className="space-y-4 sm:space-y-6">
-            <div className="px-5">
+            <div className="">
                 <h2 className="text-xl lg:text-3xl font-bold text-gray-900 mb-2">Register for <span className="text-orange-800 animate-pulse">{event.title}</span></h2>
                 <p className="mobile-text-responsive text-gray-600">
                     Fill out the form below to register for this event. All fields marked with * are required.
