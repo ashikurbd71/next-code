@@ -151,8 +151,8 @@ export default function Committee() {
                             key={member.id}
                             className="bg-white border-0 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 p-6 group h-full flex flex-col relative overflow-hidden hover:scale-[1.02]"
                         >
-                            {/* Enhanced decorative gradient overlay
-                            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-400 via-orange-500 to-red-500"></div> */}
+                            { }
+                            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-400 via-orange-500 to-red-500"></div>
 
                             {/* Profile Image Section */}
                             <div className="text-center mb-6 flex-shrink-0">
@@ -165,7 +165,7 @@ export default function Committee() {
                                     </Avatar>
 
                                     {/* Leadership indicator */}
-                                    {member.designation && (member.designation.toLowerCase().includes('president')) && (
+                                    {member.designation && (member.designation.toLowerCase().includes('President')) && (
                                         <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
                                             <span className="text-white text-xs font-bold">👑</span>
                                         </div>
