@@ -45,22 +45,22 @@ export default function StudentManagement({ students, onApproveStudent, onDelete
     });
 
     return (
-        <div className="space-y-6">
-            <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-semibold">Student Management</h2>
+        <div className="space-y-4 sm:space-y-6">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+                <h2 className="text-xl sm:text-2xl font-semibold">Student Management</h2>
                 <div className="text-sm text-gray-600">
                     {filteredStudents.filter(s => !s.approved).length} pending approval
                 </div>
             </div>
 
             {/* Search and Filter Section */}
-            <div className="bg-white p-4 rounded-lg border space-y-4">
+            <div className="bg-white p-3 sm:p-4 rounded-lg border space-y-3 sm:space-y-4">
                 <div className="flex items-center gap-2 text-sm font-medium text-gray-700">
                     <Filter className="h-4 w-4" />
                     Search & Filter
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                     {/* Search Input */}
                     <div className="relative">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -137,7 +137,7 @@ export default function StudentManagement({ students, onApproveStudent, onDelete
                 </div>
             </div>
 
-            <div className="grid gap-4">
+            <div className="grid gap-3 sm:gap-4">
                 {filteredStudents.length === 0 ? (
                     <div className="text-center py-8 text-gray-500">
                         <Search className="h-12 w-12 mx-auto mb-4 text-gray-300" />
@@ -147,17 +147,17 @@ export default function StudentManagement({ students, onApproveStudent, onDelete
                 ) : (
                     filteredStudents.map((student) => (
                         <Card key={student.id}>
-                            <CardContent className="p-6">
-                                <div className="flex justify-between items-start">
+                            <CardContent className="p-4 sm:p-6">
+                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
                                     <div className="flex-1">
-                                        <div className="flex items-center gap-3 mb-2">
-                                            <h3 className="text-lg font-semibold">{student.name}</h3>
-                                            <Badge variant={student.approved ? "default" : "secondary"}>
+                                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
+                                            <h3 className="text-base sm:text-lg font-semibold">{student.name}</h3>
+                                            <Badge variant={student.approved ? "default" : "secondary"} className="w-fit">
                                                 {student.approved ? "Approved" : "Pending"}
                                             </Badge>
                                         </div>
-                                        <p className="text-gray-600 mb-2">{student.email}</p>
-                                        <p className="text-sm text-gray-500 mb-2">{student.department}</p>
+                                        <p className="text-sm sm:text-base text-gray-600 mb-2 break-all">{student.email}</p>
+                                        <p className="text-xs sm:text-sm text-gray-500 mb-2">{student.department}</p>
 
                                         <div className="flex flex-wrap gap-1">
                                             {parseSkills(student.skills).map((skill) => (
@@ -170,29 +170,34 @@ export default function StudentManagement({ students, onApproveStudent, onDelete
                                             <p className="text-sm text-gray-600 mt-2 italic">"{student.message}"</p>
                                         )}
                                     </div>
-                                    <div className="flex gap-2 ml-4">
+                                    <div className="flex flex-wrap gap-2 sm:ml-4">
                                         <Button
                                             size="sm"
                                             variant="outline"
                                             onClick={() => openDetailModal(student)}
+                                            className="flex-1 sm:flex-none"
                                         >
-                                            <Eye className="h-4 w-4" />
+                                            <Eye className="h-4 w-4 sm:mr-2" />
+                                            <span className="sm:hidden">View</span>
                                         </Button>
                                         {!student.approved && (
                                             <Button
                                                 size="sm"
                                                 onClick={() => onApproveStudent(student.id)}
-                                                className="bg-green-600 hover:bg-green-700"
+                                                className="bg-green-600 hover:bg-green-700 flex-1 sm:flex-none"
                                             >
-                                                <Check className="h-4 w-4" />
+                                                <Check className="h-4 w-4 sm:mr-2" />
+                                                <span className="sm:hidden">Approve</span>
                                             </Button>
                                         )}
                                         <Button
                                             size="sm"
                                             variant="destructive"
                                             onClick={() => onDeleteStudent(student.id)}
+                                            className="flex-1 sm:flex-none"
                                         >
-                                            <Trash2 className="h-4 w-4" />
+                                            <Trash2 className="h-4 w-4 sm:mr-2" />
+                                            <span className="sm:hidden">Delete</span>
                                         </Button>
                                     </div>
                                 </div>
@@ -204,7 +209,7 @@ export default function StudentManagement({ students, onApproveStudent, onDelete
 
             {/* Student Detail Modal */}
             <Dialog open={isDetailModalOpen} onOpenChange={setIsDetailModalOpen}>
-                <DialogContent className="max-w-2xl">
+                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
                         <DialogTitle className="flex items-center gap-2">
                             <Eye className="h-5 w-5" />

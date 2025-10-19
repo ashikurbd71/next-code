@@ -1,6 +1,7 @@
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
+import { AuthProvider } from "@/contexts/AuthContext";
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
@@ -32,8 +33,10 @@ export default function RootLayout({ children }) {
       <body
         className={`${montserrat.className} antialiased bg-white`}
       >
-        {children}
-        <Toaster position="top-right" richColors />
+        <AuthProvider>
+          {children}
+          <Toaster position="top-right" richColors />
+        </AuthProvider>
       </body>
     </html>
   );

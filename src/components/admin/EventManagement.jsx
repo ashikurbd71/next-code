@@ -66,9 +66,9 @@ export default function EventManagement({
     };
 
     return (
-        <div className="space-y-6">
-            <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-semibold">Event Management</h2>
+        <div className="space-y-4 sm:space-y-6">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+                <h2 className="text-xl sm:text-2xl font-semibold">Event Management</h2>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
                         <Button onClick={() => openDialog()}>
@@ -76,7 +76,7 @@ export default function EventManagement({
                             Add Event
                         </Button>
                     </DialogTrigger>
-                    <DialogContent>
+                    <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                         <DialogHeader>
                             <DialogTitle>
                                 {editingItem ? 'Edit Event' : 'Add New Event'}
@@ -203,28 +203,28 @@ export default function EventManagement({
                 </Dialog>
             </div>
 
-            <div className="grid gap-4">
+            <div className="grid gap-3 sm:gap-4">
                 {events.map((event) => (
                     <Card key={event.id}>
-                        <CardContent className="p-6">
-                            <div className="flex justify-between items-start">
-                                <div className="flex items-start gap-4 flex-1">
+                        <CardContent className="p-4 sm:p-6">
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
+                                <div className="flex items-start gap-3 sm:gap-4 flex-1">
                                     {event.image && (
                                         <img
                                             src={event.image}
                                             alt={event.title}
-                                            className="w-20 h-16 object-cover rounded-lg border"
+                                            className="w-16 h-12 sm:w-20 sm:h-16 object-cover rounded-lg border flex-shrink-0"
                                         />
                                     )}
-                                    <div className="flex-1">
-                                        <div className="flex items-center gap-3 mb-2">
-                                            <h3 className="text-lg font-semibold">{event.title}</h3>
-                                            <Badge variant={event.isUpcoming ? "default" : "secondary"}>
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
+                                            <h3 className="text-base sm:text-lg font-semibold break-words">{event.title}</h3>
+                                            <Badge variant={event.isUpcoming ? "default" : "secondary"} className="w-fit">
                                                 {event.isUpcoming ? "Upcoming" : "Past"}
                                             </Badge>
                                         </div>
-                                        <p className="text-gray-600 mb-2">{event.description}</p>
-                                        <p className="text-sm text-gray-500">
+                                        <p className="text-sm sm:text-base text-gray-600 mb-2 line-clamp-2">{event.description}</p>
+                                        <p className="text-xs sm:text-sm text-gray-500">
                                             {new Date(event.date).toLocaleDateString('en-US', {
                                                 weekday: 'long',
                                                 year: 'numeric',
@@ -239,34 +239,40 @@ export default function EventManagement({
                                                 href={event.registrationLink}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="text-blue-600 hover:underline text-sm"
+                                                className="text-blue-600 hover:underline text-xs sm:text-sm break-all"
                                             >
                                                 Registration Link
                                             </a>
                                         )}
                                     </div>
                                 </div>
-                                <div className="flex gap-2 ml-4">
+                                <div className="flex flex-wrap gap-2 sm:ml-4">
                                     <Button
                                         size="sm"
                                         variant="outline"
                                         onClick={() => openDetailModal(event)}
+                                        className="flex-1 sm:flex-none"
                                     >
-                                        <Eye className="h-4 w-4" />
+                                        <Eye className="h-4 w-4 sm:mr-2" />
+                                        <span className="sm:hidden">View</span>
                                     </Button>
                                     <Button
                                         size="sm"
                                         variant="outline"
                                         onClick={() => openDialog(event)}
+                                        className="flex-1 sm:flex-none"
                                     >
-                                        <Edit className="h-4 w-4" />
+                                        <Edit className="h-4 w-4 sm:mr-2" />
+                                        <span className="sm:hidden">Edit</span>
                                     </Button>
                                     <Button
                                         size="sm"
                                         variant="destructive"
                                         onClick={() => onDeleteEvent(event.id)}
+                                        className="flex-1 sm:flex-none"
                                     >
-                                        <Trash2 className="h-4 w-4" />
+                                        <Trash2 className="h-4 w-4 sm:mr-2" />
+                                        <span className="sm:hidden">Delete</span>
                                     </Button>
                                 </div>
                             </div>
