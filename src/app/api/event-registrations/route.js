@@ -93,7 +93,7 @@ export async function POST(request) {
                 phone: phone || null,
                 semester: semester || null,
                 studentId,
-                approved: true // Auto-approve for event registrations
+                approved: false
             });
             student = await studentRepository.save(newStudent);
         }
