@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Upload, X, Image as ImageIcon } from 'lucide-react';
+import { Upload, X, Image as ImageIcon, Loader2 } from 'lucide-react';
 import { useImageUpload } from '@/hooks';
 import Image from 'next/image';
 
@@ -19,7 +19,8 @@ export default function CommitteeForm({
     removeImage,
     handleImageUpload,
     isUploading,
-    uploadError
+    uploadError,
+    isSubmitting
 }) {
     return (
         <form onSubmit={onSubmitForm} className="space-y-4">
@@ -168,8 +169,15 @@ export default function CommitteeForm({
                     )}
                 </div>
             </div>
-            <Button type="submit" className="w-full" disabled={isUploading}>
-                {editingItem ? 'Update Member' : 'Add Member'}
+            <Button type="submit" className="w-full" disabled={isUploading || isSubmitting}>
+                {isSubmitting ? (
+                    <>
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                        {editingItem ? 'Updating...' : 'Adding...'}
+                    </>
+                ) : (
+                    editingItem ? 'Update Member' : 'Add Member'
+                )}
             </Button>
         </form>
     );

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { useImageUpload } from '@/hooks';
+import { toast } from 'sonner';
 import CommitteeForm from '@/components/CommitteeForm';
 
 export default function AddCommitteePage() {
@@ -12,6 +13,7 @@ export default function AddCommitteePage() {
     const [formData, setFormData] = useState({});
     const { uploadImage, isUploading, uploadError, resetError } = useImageUpload();
     const [imagePreview, setImagePreview] = useState(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleImageUpload = async (event) => {
         const file = event.target.files[0];
@@ -39,11 +41,43 @@ export default function AddCommitteePage() {
 
     const onSubmitForm = async (e) => {
         e.preventDefault();
-        // Add your form submission logic here
-        console.log('Form submitted:', formData);
+        setIsSubmitting(true);
 
-        // After successful submission, redirect back to committee page
-        router.push('/committee');
+        try {
+            // Validate required fields
+            if (!formData.name || !formData.designation) {
+                toast.error('Please fill in all required fields (Name and Designation)');
+                return;
+            }
+
+            // Call the committee API
+            const response = await fetch('/api/committee', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Failed to submit form');
+            }
+
+            const result = await response.json();
+            console.log('Committee member added successfully:', result);
+
+            // Show success message
+            toast.success('Committee member added successfully!');
+
+            // After successful submission, redirect back to home page
+            router.push('/');
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            toast.error(`Error: ${error.message}`);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -73,6 +107,7 @@ export default function AddCommitteePage() {
                         handleImageUpload={handleImageUpload}
                         isUploading={isUploading}
                         uploadError={uploadError}
+                        isSubmitting={isSubmitting}
                     />
                 </div>
             </div>
