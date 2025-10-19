@@ -347,7 +347,7 @@ export default function JoinPage() {
                                                 type="text"
                                                 value={formData.name}
                                                 onChange={(e) => handleInputChange('name', e.target.value)}
-                                                className={errors.name ? 'border-red-500' : 'h-[40px] border-2 border-gray-300 rounded-md'}
+                                                className={`${errors.name ? 'border-red-500' : ''} h-[40px] border-2 border-gray-300 rounded-md`}
                                                 placeholder="Enter your full name"
                                             />
                                             {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
@@ -361,7 +361,7 @@ export default function JoinPage() {
                                                 type="email"
                                                 value={formData.email}
                                                 onChange={(e) => handleInputChange('email', e.target.value)}
-                                                className={errors.email ? 'border-red-500' : 'h-[40px] border-2 border-gray-300 rounded-md'}
+                                                className={`${errors.email ? 'border-red-500' : ''} h-[40px] border-2 border-gray-300 rounded-md`}
                                                 placeholder="Enter your email address"
                                             />
                                             {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
@@ -377,7 +377,7 @@ export default function JoinPage() {
                                                 type="tel"
                                                 value={formData.phone}
                                                 onChange={(e) => handleInputChange('phone', e.target.value)}
-                                                className={errors.phone ? 'border-red-500' : 'h-[40px] border-2 border-gray-300 rounded-md'}
+                                                className={`${errors.phone ? 'border-red-500' : ''} h-[40px] border-2 border-gray-300 rounded-md`}
                                                 placeholder="Enter your phone number"
                                             />
                                             {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
@@ -393,7 +393,7 @@ export default function JoinPage() {
                                                 type="text"
                                                 value={formData.rollNumber}
                                                 onChange={(e) => handleInputChange('rollNumber', e.target.value)}
-                                                className={errors.rollNumber ? 'border-red-500' : 'h-[40px] border-2 border-gray-300 rounded-md'}
+                                                className={`${errors.rollNumber ? 'border-red-500' : ''} h-[40px] border-2 border-gray-300 rounded-md`}
                                                 placeholder="Enter your roll number"
                                             />
                                             {errors.rollNumber && <p className="text-red-500 text-sm mt-1">{errors.rollNumber}</p>}
@@ -403,7 +403,7 @@ export default function JoinPage() {
                                         <div className=''>
                                             <Label className='pb-2' htmlFor="department">Department *</Label>
                                             <Select className='' value={formData.department} onValueChange={(value) => handleInputChange('department', value)}>
-                                                <SelectTrigger className={`${errors.department ? 'border-red-500' : 'h-[40px] border-2 border-gray-300 rounded-md'} w-full`}>
+                                                <SelectTrigger className={`${errors.department ? 'border-red-500' : ''} h-[40px] border-2 border-gray-300 rounded-md w-full`}>
                                                     <SelectValue placeholder="Select your department" />
                                                 </SelectTrigger>
                                                 <SelectContent>
@@ -419,7 +419,7 @@ export default function JoinPage() {
                                         <div>
                                             <Label className='pb-2' htmlFor="semester">Semester *</Label>
                                             <Select value={formData.semester} onValueChange={(value) => handleInputChange('semester', value)}>
-                                                <SelectTrigger className={`${errors.semester ? 'border-red-500' : 'h-[40px] border-2 border-gray-300 rounded-md'} w-full`}>
+                                                <SelectTrigger className={`${errors.semester ? 'border-red-500' : ''} h-[40px] border-2 border-gray-300 rounded-md w-full`}>
                                                     <SelectValue placeholder="Select semester" />
                                                 </SelectTrigger>
                                                 <SelectContent>
@@ -434,7 +434,7 @@ export default function JoinPage() {
                                         <div>
                                             <Label className='pb-2' htmlFor="session">Session *</Label>
                                             <Select value={formData.session} onValueChange={(value) => handleInputChange('session', value)}>
-                                                <SelectTrigger className={`${errors.session ? 'border-red-500' : 'h-[40px] border-2 border-gray-300 rounded-md'} w-full`}>
+                                                <SelectTrigger className={`${errors.session ? 'border-red-500' : ''} h-[40px] border-2 border-gray-300 rounded-md w-full`}>
                                                     <SelectValue placeholder="Select session" />
                                                 </SelectTrigger>
                                                 <SelectContent>
@@ -450,7 +450,7 @@ export default function JoinPage() {
                                         <div>
                                             <Label className='pb-2' htmlFor="gender">Gender *</Label>
                                             <Select value={formData.gender} onValueChange={(value) => handleInputChange('gender', value)}>
-                                                <SelectTrigger className={`${errors.gender ? 'border-red-500' : 'h-[40px] border-2 border-gray-300 rounded-md   '} w-full`}>
+                                                <SelectTrigger className={`${errors.gender ? 'border-red-500' : ''} h-[40px] border-2 border-gray-300 rounded-md   w-full`}>
                                                     <SelectValue placeholder="Select gender" />
                                                 </SelectTrigger>
                                                 <SelectContent>
@@ -567,8 +567,8 @@ export default function JoinPage() {
                             </CardContent>
                         </Card>
                     </div>
-                </section>
-            </main>
+                </section >
+            </main >
 
             <Footer />
         </div >
