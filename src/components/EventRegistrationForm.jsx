@@ -262,7 +262,7 @@ export default function EventRegistrationForm({ event, onRegistrationSuccess }) 
                                 onChange={(e) => handleInputChange('name', e.target.value)}
                                 placeholder="Enter your full name"
                                 readOnly={emailChecked}
-                                className={`mobile-form-input ${emailChecked ? 'bg-gray-50' : 'py-2 border-2 border-gray-300 rounded-md'}`}
+                                className={`mobile-form-input ${emailChecked ? 'bg-gray-50' : 'h-[40px] border-2 border-gray-300 rounded-md'}`}
                             />
                         </div>
                     </div>
@@ -276,7 +276,7 @@ export default function EventRegistrationForm({ event, onRegistrationSuccess }) 
                                 onChange={(e) => handleInputChange('phone', e.target.value)}
                                 placeholder="Enter your phone number"
                                 readOnly={emailChecked}
-                                className={`mobile-form-input ${emailChecked ? 'bg-gray-50' : 'py-2 border-2 border-gray-300 rounded-md'}`}
+                                className={`mobile-form-input ${emailChecked ? 'bg-gray-50' : 'h-[40px] border-2 border-gray-300 rounded-md'}`}
                             />
                         </div>
 
@@ -287,7 +287,7 @@ export default function EventRegistrationForm({ event, onRegistrationSuccess }) 
                                 onValueChange={(value) => handleInputChange('department', value)}
                                 disabled={emailChecked}
                             >
-                                <SelectTrigger className={`mobile-form-input ${emailChecked ? 'bg-gray-50' : 'py-2 border-2 border-gray-300 rounded-md'} w-full`}>
+                                <SelectTrigger className={`mobile-form-input ${emailChecked ? 'bg-gray-50' : 'h-[40px] border-2 border-gray-300 rounded-md'} w-full`}>
                                     <SelectValue placeholder="Select your department" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -307,7 +307,7 @@ export default function EventRegistrationForm({ event, onRegistrationSuccess }) 
                                 onValueChange={(value) => handleInputChange('semester', value)}
                                 disabled={emailChecked}
                             >
-                                <SelectTrigger className={`mobile-form-input ${emailChecked ? 'bg-gray-50' : 'py-2 border-2 border-gray-300 rounded-md'} w-full`}>
+                                <SelectTrigger className={`mobile-form-input ${emailChecked ? 'bg-gray-50' : 'h-[40px] border-2 border-gray-300 rounded-md'} w-full`}>
                                     <SelectValue placeholder="Select semester" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -325,7 +325,7 @@ export default function EventRegistrationForm({ event, onRegistrationSuccess }) 
                                 value={formData.instituteName}
                                 onChange={(e) => handleInputChange('instituteName', e.target.value)}
                                 placeholder="Enter your institute name"
-                                className="mobile-form-input py-2 border-2 border-gray-300 rounded-md   "
+                                className="mobile-form-input h-[40px] border-2 border-gray-300 rounded-md   "
                             />
                         </div>
                     </div>
@@ -342,7 +342,7 @@ export default function EventRegistrationForm({ event, onRegistrationSuccess }) 
                             id="motivation"
                             value={formData.motivation}
                             onChange={(e) => handleInputChange('motivation', e.target.value)}
-                            className={`mobile-form-input ${errors.motivation ? 'border-red-500' : 'py-2 border-2 border-gray-300 rounded-md    '}`}
+                            className={`mobile-form-input ${errors.motivation ? 'border-red-500' : 'h-[40px] border-2 border-gray-300 rounded-md    '}`}
                             placeholder="Tell us about your interest in this event..."
                             rows={3}
                         />
