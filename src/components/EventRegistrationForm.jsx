@@ -143,6 +143,9 @@ export default function EventRegistrationForm({ event, onRegistrationSuccess }) 
             newErrors.email = 'Email is invalid';
         }
 
+        if (!formData.name.trim()) {
+            newErrors.name = 'Name is required';
+        }
 
         if (!formData.motivation.trim()) {
             newErrors.motivation = 'Please tell us why you want to attend this event';
@@ -255,15 +258,16 @@ export default function EventRegistrationForm({ event, onRegistrationSuccess }) 
                     {/* Auto-filled Information */}
                     <div className="grid mobile-grid-1 gap-4">
                         <div>
-                            <Label className='pb-2' htmlFor="name">Full Name</Label>
+                            <Label className='pb-2' htmlFor="name">Full Name *</Label>
                             <Input
                                 id="name"
                                 value={formData.name}
                                 onChange={(e) => handleInputChange('name', e.target.value)}
                                 placeholder="Enter your full name"
                                 readOnly={emailChecked}
-                                className={`mobile-form-input ${emailChecked ? 'bg-gray-50' : ''} h-[40px] border-2 border-gray-300 rounded-md`}
+                                className={`mobile-form-input ${emailChecked ? 'bg-gray-50' : ''} ${errors.name ? 'border-red-500' : ''} h-[40px] border-2 border-gray-300 rounded-md`}
                             />
+                            {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                         </div>
                     </div>
 
