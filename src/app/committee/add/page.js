@@ -58,7 +58,7 @@ export default function AddCommitteePage() {
                         <ArrowLeft className="h-4 w-4 mr-2" />
                         Back
                     </Button>
-                    <h1 className="text-3xl font-bold">Add Committee Member</h1>
+                    <h1 className="text-lg font-bold">Add Your Information</h1>
                 </div>
 
                 <div className="bg-white rounded-lg border p-6">
