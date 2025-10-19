@@ -217,7 +217,7 @@ export default function EventRegistrationForm({ event, onRegistrationSuccess }) 
 
     return (
         <div className="space-y-4 sm:space-y-6">
-            <div className="mobile-spacing-base">
+            <div className="px-5">
                 <h2 className="text-xl lg:text-3xl font-bold text-gray-900 mb-2">Register for <span className="text-orange-800 animate-pulse">{event.title}</span></h2>
                 <p className="mobile-text-responsive text-gray-600">
                     Fill out the form below to register for this event. All fields marked with * are required.
@@ -237,7 +237,7 @@ export default function EventRegistrationForm({ event, onRegistrationSuccess }) 
                                 type="email"
                                 value={formData.email}
                                 onChange={(e) => handleInputChange('email', e.target.value)}
-                                className={`mobile-form-input ${errors.email ? 'border-red-500' : ''}`}
+                                className={`mobile-form-input ${errors.email ? 'border-red-500' : 'py-2 border-2 border-gray-300 rounded-md'}`}
                                 placeholder="Enter your email address"
                             />
                             {isCheckingEmail && (
@@ -262,7 +262,7 @@ export default function EventRegistrationForm({ event, onRegistrationSuccess }) 
                                 onChange={(e) => handleInputChange('name', e.target.value)}
                                 placeholder="Enter your full name"
                                 readOnly={emailChecked}
-                                className={`mobile-form-input ${emailChecked ? 'bg-gray-50' : ''}`}
+                                className={`mobile-form-input ${emailChecked ? 'bg-gray-50' : 'py-2 border-2 border-gray-300 rounded-md'}`}
                             />
                         </div>
                     </div>
@@ -276,7 +276,7 @@ export default function EventRegistrationForm({ event, onRegistrationSuccess }) 
                                 onChange={(e) => handleInputChange('phone', e.target.value)}
                                 placeholder="Enter your phone number"
                                 readOnly={emailChecked}
-                                className={`mobile-form-input ${emailChecked ? 'bg-gray-50' : ''}`}
+                                className={`mobile-form-input ${emailChecked ? 'bg-gray-50' : 'py-2 border-2 border-gray-300 rounded-md'}`}
                             />
                         </div>
 
@@ -287,7 +287,7 @@ export default function EventRegistrationForm({ event, onRegistrationSuccess }) 
                                 onValueChange={(value) => handleInputChange('department', value)}
                                 disabled={emailChecked}
                             >
-                                <SelectTrigger className={`mobile-form-input ${emailChecked ? 'bg-gray-50' : ''} w-full`}>
+                                <SelectTrigger className={`mobile-form-input ${emailChecked ? 'bg-gray-50' : 'py-2 border-2 border-gray-300 rounded-md'} w-full`}>
                                     <SelectValue placeholder="Select your department" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -307,7 +307,7 @@ export default function EventRegistrationForm({ event, onRegistrationSuccess }) 
                                 onValueChange={(value) => handleInputChange('semester', value)}
                                 disabled={emailChecked}
                             >
-                                <SelectTrigger className={`mobile-form-input ${emailChecked ? 'bg-gray-50' : ''} w-full`}>
+                                <SelectTrigger className={`mobile-form-input ${emailChecked ? 'bg-gray-50' : 'py-2 border-2 border-gray-300 rounded-md'} w-full`}>
                                     <SelectValue placeholder="Select semester" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -325,7 +325,7 @@ export default function EventRegistrationForm({ event, onRegistrationSuccess }) 
                                 value={formData.instituteName}
                                 onChange={(e) => handleInputChange('instituteName', e.target.value)}
                                 placeholder="Enter your institute name"
-                                className="mobile-form-input"
+                                className="mobile-form-input py-2 border-2 border-gray-300 rounded-md   "
                             />
                         </div>
                     </div>
@@ -342,7 +342,7 @@ export default function EventRegistrationForm({ event, onRegistrationSuccess }) 
                             id="motivation"
                             value={formData.motivation}
                             onChange={(e) => handleInputChange('motivation', e.target.value)}
-                            className={`mobile-form-input ${errors.motivation ? 'border-red-500' : ''}`}
+                            className={`mobile-form-input ${errors.motivation ? 'border-red-500' : 'py-2 border-2 border-gray-300 rounded-md    '}`}
                             placeholder="Tell us about your interest in this event..."
                             rows={3}
                         />

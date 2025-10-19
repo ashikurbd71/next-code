@@ -1,5 +1,6 @@
 import { Montserrat } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
         className={`${montserrat.className} antialiased bg-white`}
       >
         {children}
+        <Toaster position="top-right" richColors />
       </body>
     </html>
   );

@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import TestimonialForm from '@/components/TestimonialForm';
-
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 export default function TestimonialsPage() {
     const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
 
     const handleSubmitTestimonial = async (formData) => {
         setIsLoading(true);
@@ -18,15 +20,15 @@ export default function TestimonialsPage() {
             });
 
             if (response.ok) {
-                // Show success message (you can add a toast notification here)
-                alert('Testimonial added successfully!');
+                toast.success('Testimonial added successfully!');
+                router.push('/');
             } else {
                 const error = await response.json();
-                alert(`Error: ${error.error || 'Failed to add testimonial'}`);
+                toast.error(`Error: ${error.error || 'Failed to add testimonial'}`);
             }
         } catch (error) {
             console.error('Error submitting testimonial:', error);
-            alert('Error submitting testimonial. Please try again.');
+            toast.error('Error submitting testimonial. Please try again.');
         } finally {
             setIsLoading(false);
         }

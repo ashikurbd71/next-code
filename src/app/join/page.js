@@ -9,7 +9,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle, Users, Code, Trophy, Lightbulb } from 'lucide-react';
+import { CheckCircle, Users, Code, Trophy, Lightbulb, Upload, X, Camera } from 'lucide-react';
+import { useImageUpload } from '@/hooks/useImageUpload';
 
 export default function JoinPage() {
     const [formData, setFormData] = useState({
@@ -22,11 +23,14 @@ export default function JoinPage() {
         gender: '',
         rollNumber: '',
         skills: [],
-        message: ''
+        message: '',
+        profilePicture: null
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [errors, setErrors] = useState({});
+    const [profilePicturePreview, setProfilePicturePreview] = useState(null);
+    const { uploadImage, isUploading, uploadError, resetError } = useImageUpload();
 
     const departments = [
 
@@ -138,6 +142,36 @@ export default function JoinPage() {
         }));
     };
 
+    const handleProfilePictureChange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // Create preview
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            setProfilePicturePreview(e.target.result);
+        };
+        reader.readAsDataURL(file);
+
+        // Upload image
+        const uploadResult = await uploadImage(file);
+        if (uploadResult) {
+            setFormData(prev => ({
+                ...prev,
+                profilePicture: uploadResult.url
+            }));
+        }
+    };
+
+    const removeProfilePicture = () => {
+        setFormData(prev => ({
+            ...prev,
+            profilePicture: null
+        }));
+        setProfilePicturePreview(null);
+        resetError();
+    };
+
     const validateForm = () => {
         const newErrors = {};
 
@@ -213,14 +247,37 @@ export default function JoinPage() {
                     gender: '',
                     rollNumber: '',
                     skills: [],
-                    message: ''
+                    message: '',
+                    profilePicture: null
                 });
+                setProfilePicturePreview(null);
             } else {
-                throw new Error('Failed to submit application');
+                const errorData = await response.json();
+
+                // Handle specific error cases
+                if (response.status === 409) {
+                    if (errorData.error === 'Student with this email already exists') {
+                        setErrors({
+                            submit: 'An application with this email address has already been submitted. Please use a different email or contact us if you believe this is an error.',
+                            email: 'This email is already registered'
+                        });
+                    } else if (errorData.error === 'Email already exists') {
+                        setErrors({
+                            submit: 'This email address is already registered. Please use a different email.',
+                            email: 'This email is already registered'
+                        });
+                    } else if (errorData.error === 'Student ID conflict') {
+                        setErrors({ submit: 'There was a technical issue. Please try submitting your application again.' });
+                    } else {
+                        setErrors({ submit: errorData.details || 'This email is already registered. Please use a different email.' });
+                    }
+                } else {
+                    setErrors({ submit: errorData.details || 'Failed to submit application. Please try again.' });
+                }
             }
         } catch (error) {
             console.error('Error submitting application:', error);
-            setErrors({ submit: 'Failed to submit application. Please try again.' });
+            setErrors({ submit: 'Network error. Please check your connection and try again.' });
         } finally {
             setIsSubmitting(false);
         }
@@ -289,7 +346,7 @@ export default function JoinPage() {
                                                 type="text"
                                                 value={formData.name}
                                                 onChange={(e) => handleInputChange('name', e.target.value)}
-                                                className={errors.name ? 'border-red-500' : ''}
+                                                className={errors.name ? 'border-red-500' : 'py-2 border-2 border-gray-300 rounded-md'}
                                                 placeholder="Enter your full name"
                                             />
                                             {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
@@ -303,7 +360,7 @@ export default function JoinPage() {
                                                 type="email"
                                                 value={formData.email}
                                                 onChange={(e) => handleInputChange('email', e.target.value)}
-                                                className={errors.email ? 'border-red-500' : ''}
+                                                className={errors.email ? 'border-red-500' : 'py-2 border-2 border-gray-300 rounded-md'}
                                                 placeholder="Enter your email address"
                                             />
                                             {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
@@ -319,7 +376,7 @@ export default function JoinPage() {
                                                 type="tel"
                                                 value={formData.phone}
                                                 onChange={(e) => handleInputChange('phone', e.target.value)}
-                                                className={errors.phone ? 'border-red-500' : ''}
+                                                className={errors.phone ? 'border-red-500' : 'py-2 border-2 border-gray-300 rounded-md'}
                                                 placeholder="Enter your phone number"
                                             />
                                             {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
@@ -335,7 +392,7 @@ export default function JoinPage() {
                                                 type="text"
                                                 value={formData.rollNumber}
                                                 onChange={(e) => handleInputChange('rollNumber', e.target.value)}
-                                                className={errors.rollNumber ? 'border-red-500' : ''}
+                                                className={errors.rollNumber ? 'border-red-500' : 'py-2 border-2 border-gray-300 rounded-md'}
                                                 placeholder="Enter your roll number"
                                             />
                                             {errors.rollNumber && <p className="text-red-500 text-sm mt-1">{errors.rollNumber}</p>}
@@ -345,7 +402,7 @@ export default function JoinPage() {
                                         <div className=''>
                                             <Label className='pb-2' htmlFor="department">Department *</Label>
                                             <Select className='' value={formData.department} onValueChange={(value) => handleInputChange('department', value)}>
-                                                <SelectTrigger className={`${errors.department ? 'border-red-500' : ''} w-full`}>
+                                                <SelectTrigger className={`${errors.department ? 'border-red-500' : 'py-2 border-2 border-gray-300 rounded-md'} w-full`}>
                                                     <SelectValue placeholder="Select your department" />
                                                 </SelectTrigger>
                                                 <SelectContent>
@@ -361,7 +418,7 @@ export default function JoinPage() {
                                         <div>
                                             <Label className='pb-2' htmlFor="semester">Semester *</Label>
                                             <Select value={formData.semester} onValueChange={(value) => handleInputChange('semester', value)}>
-                                                <SelectTrigger className={`${errors.semester ? 'border-red-500' : ''} w-full`}>
+                                                <SelectTrigger className={`${errors.semester ? 'border-red-500' : 'py-2 border-2 border-gray-300 rounded-md'} w-full`}>
                                                     <SelectValue placeholder="Select semester" />
                                                 </SelectTrigger>
                                                 <SelectContent>
@@ -376,7 +433,7 @@ export default function JoinPage() {
                                         <div>
                                             <Label className='pb-2' htmlFor="session">Session *</Label>
                                             <Select value={formData.session} onValueChange={(value) => handleInputChange('session', value)}>
-                                                <SelectTrigger className={`${errors.session ? 'border-red-500' : ''} w-full`}>
+                                                <SelectTrigger className={`${errors.session ? 'border-red-500' : 'py-2 border-2 border-gray-300 rounded-md'} w-full`}>
                                                     <SelectValue placeholder="Select session" />
                                                 </SelectTrigger>
                                                 <SelectContent>
@@ -392,7 +449,7 @@ export default function JoinPage() {
                                         <div>
                                             <Label className='pb-2' htmlFor="gender">Gender *</Label>
                                             <Select value={formData.gender} onValueChange={(value) => handleInputChange('gender', value)}>
-                                                <SelectTrigger className={`${errors.gender ? 'border-red-500' : ''} w-full`}>
+                                                <SelectTrigger className={`${errors.gender ? 'border-red-500' : 'py-2 border-2 border-gray-300 rounded-md   '} w-full`}>
                                                     <SelectValue placeholder="Select gender" />
                                                 </SelectTrigger>
                                                 <SelectContent>
@@ -404,6 +461,55 @@ export default function JoinPage() {
                                             {errors.gender && <p className="text-red-500 text-sm mt-1">{errors.gender}</p>}
                                         </div>
 
+                                    </div>
+
+                                    {/* Profile Picture Upload */}
+                                    <div>
+                                        <Label className='pb-2'>Profile Picture (Optional)</Label>
+                                        <div className="space-y-3">
+                                            {profilePicturePreview ? (
+                                                <div className="relative inline-block">
+                                                    <img
+                                                        src={profilePicturePreview}
+                                                        alt="Profile preview"
+                                                        className="w-24 h-24 rounded-full object-cover border-2 border-gray-300"
+                                                    />
+                                                    <button
+                                                        type="button"
+                                                        onClick={removeProfilePicture}
+                                                        className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
+                                                    >
+                                                        <X className="h-3 w-3" />
+                                                    </button>
+                                                </div>
+                                            ) : (
+                                                <div className="flex items-center space-x-4">
+                                                    <label
+                                                        htmlFor="profilePicture"
+                                                        className="flex items-center space-x-2 px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-gray-400 transition-colors"
+                                                    >
+                                                        <Camera className="h-5 w-5 text-gray-500" />
+                                                        <span className="text-sm text-gray-600">
+                                                            {isUploading ? 'Uploading...' : 'Choose Photo'}
+                                                        </span>
+                                                    </label>
+                                                    <input
+                                                        id="profilePicture"
+                                                        type="file"
+                                                        accept="image/*"
+                                                        onChange={handleProfilePictureChange}
+                                                        className="hidden"
+                                                        disabled={isUploading}
+                                                    />
+                                                </div>
+                                            )}
+                                            {uploadError && (
+                                                <p className="text-red-500 text-sm">{uploadError}</p>
+                                            )}
+                                            <p className="text-xs text-gray-500">
+                                                Supported formats: JPG, PNG, GIF. Max size: 32MB
+                                            </p>
+                                        </div>
                                     </div>
 
                                     {/* Skills */}

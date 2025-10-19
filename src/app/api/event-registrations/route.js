@@ -57,6 +57,34 @@ export async function POST(request) {
         });
 
         if (!student) {
+            // Generate unique student ID with retry logic
+            let studentId;
+            let attempts = 0;
+            const maxAttempts = 10;
+
+            do {
+                const existingStudents = await studentRepository.count();
+                studentId = `nextcode-ov-${String(existingStudents + 1 + attempts).padStart(3, '0')}`;
+
+                // Check if this studentId already exists
+                const existingWithId = await studentRepository.findOne({
+                    where: { studentId }
+                });
+
+                if (!existingWithId) {
+                    break;
+                }
+
+                attempts++;
+            } while (attempts < maxAttempts);
+
+            if (attempts >= maxAttempts) {
+                return NextResponse.json({
+                    error: 'Failed to generate unique student ID',
+                    details: 'Unable to generate a unique student ID after multiple attempts'
+                }, { status: 500 });
+            }
+
             // Create new student
             const newStudent = studentRepository.create({
                 name,
@@ -64,7 +92,8 @@ export async function POST(request) {
                 department: department || null,
                 phone: phone || null,
                 semester: semester || null,
-                status: 'approved' // Auto-approve for event registrations
+                studentId,
+                approved: true // Auto-approve for event registrations
             });
             student = await studentRepository.save(newStudent);
         }
@@ -116,6 +145,22 @@ export async function POST(request) {
             code: error.code,
             stack: error.stack
         });
+
+        // Handle specific database constraint errors
+        if (error.code === '23505') { // PostgreSQL unique constraint violation
+            if (error.constraint && error.constraint.includes('email')) {
+                return NextResponse.json({
+                    error: 'Email already exists',
+                    details: 'A student with this email address is already registered'
+                }, { status: 409 });
+            } else if (error.constraint && error.constraint.includes('studentId')) {
+                return NextResponse.json({
+                    error: 'Student ID conflict',
+                    details: 'Generated student ID already exists. Please try again.'
+                }, { status: 409 });
+            }
+        }
+
         return NextResponse.json({
             error: 'Failed to create event registration',
             details: error.message
