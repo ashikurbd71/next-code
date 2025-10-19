@@ -189,6 +189,115 @@ export default function Committee() {
 
     return (
         <div className="bg-gray-50">
+
+
+            {/* Designation Advisers Section */}
+            <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-blue-50 to-indigo-100">
+                <div className="w-full mx-auto px-4 sm:px-6 lg:px-22">
+                    <div className="text-center mb-12 sm:mb-16">
+                        <h2 className="text-2xl sm:text-3xl md:text-2xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 px-4">Our <span className='text-orange-800 animate-pulse'>Advisers</span></h2>
+                        <p className="text-base sm:text-lg md:text-lg lg:text-lg text-gray-600 max-w-3xl mx-auto px-4 leading-relaxed">
+                            Our esteemed faculty members who provide guidance, mentorship, and academic support
+                            to help NextCode achieve its mission and goals.
+                        </p>
+                    </div>
+
+                    {/* Advisers Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+                        {advisers.map((adviser) => (
+                            <div
+                                key={adviser.id}
+                                className="bg-white border-0 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 p-8 group h-full flex flex-col relative overflow-hidden hover:scale-[1.02]"
+                            >
+                                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-400 via-orange-500 to-red-500"></div>
+
+                                {/* Profile Image Section */}
+                                <div className="text-center mb-6 flex-shrink-0">
+                                    <div className="relative inline-block">
+                                        <Avatar className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 mx-auto mb-4 ring-4 ring-blue-100 group-hover:ring-blue-200 transition-all duration-300 shadow-lg">
+                                            <AvatarImage src={adviser.photo} alt={adviser.name} />
+                                            <AvatarFallback className="text-2xl sm:text-3xl lg:text-3xl font-bold bg-gradient-to-br from-orange-100 to-orange-200 text-orange-800">
+                                                {adviser.name.split(' ').map(n => n[0]).join('')}
+                                            </AvatarFallback>
+                                        </Avatar>
+
+                                        {/* Faculty indicator */}
+                                        <div className="absolute -top-1 -right-1 w-8 h-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
+                                            <span className="text-white text-sm font-bold">🎓</span>
+                                        </div>
+                                    </div>
+
+                                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 group-hover:text-blue-800 transition-colors duration-300">
+                                        {adviser.name}
+                                    </h3>
+
+                                    <Badge className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-sm px-4 py-2 rounded-full shadow-md mb-3 font-semibold">
+                                        {adviser.designation}
+                                    </Badge>
+
+                                    {adviser.title && (
+                                        <p className="text-sm text-blue-600 mb-1 font-semibold">
+                                            {adviser.title}
+                                        </p>
+                                    )}
+                                    {adviser.department && (
+                                        <p className="text-sm text-gray-600">
+                                            {adviser.department}
+                                        </p>
+                                    )}
+                                </div>
+
+                                {/* Enhanced Bio Section */}
+                                <div className="flex-grow mb-6">
+                                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-100">
+                                        <p className="text-gray-600 text-sm leading-relaxed line-clamp-5 group-hover:text-gray-700 transition-colors duration-300">
+                                            {adviser.bio}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Enhanced Social Links */}
+                                <div className="flex justify-center space-x-3 pt-4 border-t border-gray-100">
+                                    {adviser.email && (
+                                        <a
+                                            href={`mailto:${adviser.email}`}
+                                            className="p-3 text-gray-400 hover:text-orange-600 hover:bg-orange-50 rounded-full transition-all duration-300 group/social shadow-sm hover:shadow-md"
+                                            title="Email"
+                                        >
+                                            <Mail className="h-5 w-5 group-hover/social:scale-110 transition-transform" />
+                                        </a>
+                                    )}
+                                    {adviser.linkedin && (
+                                        <a
+                                            href={adviser.linkedin}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="p-3 text-gray-400 hover:text-orange-600 hover:bg-orange-50 rounded-full transition-all duration-300 group/social shadow-sm hover:shadow-md"
+                                            title="LinkedIn"
+                                        >
+                                            <Linkedin className="h-5 w-5 group-hover/social:scale-110 transition-transform" />
+                                        </a>
+                                    )}
+                                    {adviser.facebookLink && (
+                                        <a
+                                            href={adviser.facebookLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="p-3 text-gray-400 hover:text-orange-600 hover:bg-orange-50 rounded-full transition-all duration-300 group/social shadow-sm hover:shadow-md"
+                                            title="Facebook"
+                                        >
+                                            <Facebook className="h-5 w-5 group-hover/social:scale-110 transition-transform" />
+                                        </a>
+                                    )}
+                                </div>
+
+                                {/* Subtle corner accent */}
+                                <div className="absolute top-4 left-4 w-2 h-2 bg-blue-400 rounded-full opacity-60"></div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
             {/* Management Committee Section */}
             <section className="py-12 sm:py-16 lg:py-20">
                 <div className="w-full mx-auto px-4 sm:px-6 lg:px-22">
@@ -310,113 +419,7 @@ export default function Committee() {
                 </div>
             </section>
 
-            {/* Designation Advisers Section */}
-            <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-blue-50 to-indigo-100">
-                <div className="w-full mx-auto px-4 sm:px-6 lg:px-22">
-                    <div className="text-center mb-12 sm:mb-16">
-                        <h2 className="text-2xl sm:text-3xl md:text-2xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 px-4">Our <span className='text-orange-800 animate-pulse'>Advisers</span></h2>
-                        <p className="text-base sm:text-lg md:text-lg lg:text-lg text-gray-600 max-w-3xl mx-auto px-4 leading-relaxed">
-                            Our esteemed faculty members who provide guidance, mentorship, and academic support
-                            to help NextCode achieve its mission and goals.
-                        </p>
-                    </div>
 
-                    {/* Advisers Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-                        {advisers.map((adviser) => (
-                            <div
-                                key={adviser.id}
-                                className="bg-white border-0 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 p-8 group h-full flex flex-col relative overflow-hidden hover:scale-[1.02]"
-                            >
-                                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-400 via-orange-500 to-red-500"></div>
-
-                                {/* Profile Image Section */}
-                                <div className="text-center mb-6 flex-shrink-0">
-                                    <div className="relative inline-block">
-                                        <Avatar className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 mx-auto mb-4 ring-4 ring-blue-100 group-hover:ring-blue-200 transition-all duration-300 shadow-lg">
-                                            <AvatarImage src={adviser.photo} alt={adviser.name} />
-                                            <AvatarFallback className="text-2xl sm:text-3xl lg:text-3xl font-bold bg-gradient-to-br from-orange-100 to-orange-200 text-orange-800">
-                                                {adviser.name.split(' ').map(n => n[0]).join('')}
-                                            </AvatarFallback>
-                                        </Avatar>
-
-                                        {/* Faculty indicator */}
-                                        <div className="absolute -top-1 -right-1 w-8 h-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
-                                            <span className="text-white text-sm font-bold">🎓</span>
-                                        </div>
-                                    </div>
-
-                                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 group-hover:text-blue-800 transition-colors duration-300">
-                                        {adviser.name}
-                                    </h3>
-
-                                    <Badge className="bg-gradient-to-r from-orange-500 to-red-500 text-white text-sm px-4 py-2 rounded-full shadow-md mb-3 font-semibold">
-                                        {adviser.designation}
-                                    </Badge>
-
-                                    {adviser.title && (
-                                        <p className="text-sm text-blue-600 mb-1 font-semibold">
-                                            {adviser.title}
-                                        </p>
-                                    )}
-                                    {adviser.department && (
-                                        <p className="text-sm text-gray-600">
-                                            {adviser.department}
-                                        </p>
-                                    )}
-                                </div>
-
-                                {/* Enhanced Bio Section */}
-                                <div className="flex-grow mb-6">
-                                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-100">
-                                        <p className="text-gray-600 text-sm leading-relaxed line-clamp-5 group-hover:text-gray-700 transition-colors duration-300">
-                                            {adviser.bio}
-                                        </p>
-                                    </div>
-                                </div>
-
-                                {/* Enhanced Social Links */}
-                                <div className="flex justify-center space-x-3 pt-4 border-t border-gray-100">
-                                    {adviser.email && (
-                                        <a
-                                            href={`mailto:${adviser.email}`}
-                                            className="p-3 text-gray-400 hover:text-orange-600 hover:bg-orange-50 rounded-full transition-all duration-300 group/social shadow-sm hover:shadow-md"
-                                            title="Email"
-                                        >
-                                            <Mail className="h-5 w-5 group-hover/social:scale-110 transition-transform" />
-                                        </a>
-                                    )}
-                                    {adviser.linkedin && (
-                                        <a
-                                            href={adviser.linkedin}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="p-3 text-gray-400 hover:text-orange-600 hover:bg-orange-50 rounded-full transition-all duration-300 group/social shadow-sm hover:shadow-md"
-                                            title="LinkedIn"
-                                        >
-                                            <Linkedin className="h-5 w-5 group-hover/social:scale-110 transition-transform" />
-                                        </a>
-                                    )}
-                                    {adviser.facebookLink && (
-                                        <a
-                                            href={adviser.facebookLink}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="p-3 text-gray-400 hover:text-orange-600 hover:bg-orange-50 rounded-full transition-all duration-300 group/social shadow-sm hover:shadow-md"
-                                            title="Facebook"
-                                        >
-                                            <Facebook className="h-5 w-5 group-hover/social:scale-110 transition-transform" />
-                                        </a>
-                                    )}
-                                </div>
-
-                                {/* Subtle corner accent */}
-                                <div className="absolute top-4 left-4 w-2 h-2 bg-blue-400 rounded-full opacity-60"></div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
         </div>
     );
 }
