@@ -81,7 +81,7 @@ export default function RegistrationManagement({
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-semibold">Event Registrations</h2>
+                <h2 className="text-xl  font-semibold">Event Registrations</h2>
                 <div className="text-sm text-gray-500">
                     {filteredRegistrations.length} of {eventRegistrations.length} registrations
                 </div>

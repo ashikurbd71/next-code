@@ -61,7 +61,7 @@ export default function TestimonialManagement({
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-semibold">Testimonials Management</h2>
+                <h2 className="text-xl  font-semibold">Testimonials Management</h2>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
                         <Button onClick={() => openDialog()}>

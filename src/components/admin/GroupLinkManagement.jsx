@@ -173,7 +173,7 @@ export default function GroupLinkManagement() {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <div>
-                    <h2 className="text-2xl font-bold text-gray-900">Group Link Management</h2>
+                    <h2 className="text-xl  font-semibold">Group Link Management</h2>
                     <p className="text-gray-600">Manage group links for events</p>
                 </div>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

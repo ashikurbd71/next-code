@@ -68,7 +68,7 @@ export default function EventManagement({
     return (
         <div className="space-y-4 sm:space-y-6">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-                <h2 className="text-xl sm:text-2xl font-semibold">Event Management</h2>
+                <h2 className="text-xl  font-semibold">Event Management</h2>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
                         <Button onClick={() => openDialog()}>

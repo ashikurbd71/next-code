@@ -47,7 +47,7 @@ export default function StudentManagement({ students, onApproveStudent, onDelete
     return (
         <div className="space-y-4 sm:space-y-6">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-                <h2 className="text-xl sm:text-2xl font-semibold">Student Management</h2>
+                <h2 className="text-xl  font-semibold">Student Management</h2>
                 <div className="text-sm text-gray-600">
                     {filteredStudents.filter(s => !s.approved).length} pending approval
                 </div>
