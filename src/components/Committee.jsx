@@ -12,7 +12,6 @@ export default function Committee() {
 
     useEffect(() => {
         fetchCommitteeMembers();
-        fetchDesignationAdvisers();
     }, []);
 
     const fetchCommitteeMembers = async () => {
