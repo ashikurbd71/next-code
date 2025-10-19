@@ -22,76 +22,32 @@ export default function Committee() {
                 const data = await response.json();
                 // Sort by order field only
                 const sortedData = data.sort((a, b) => (a.order || 0) - (b.order || 0));
+                const advisor = sortedData.filter(member => member.designation.toLowerCase().includes('advisor'));
                 setMembers(sortedData);
+                setAdvisers(advisor);
             } else {
                 // Fallback data if API fails
                 const fallbackData = getFallbackMembers();
                 // Sort fallback data by order
                 const sortedFallback = fallbackData.sort((a, b) => (a.order || 0) - (b.order || 0));
+                const advisor = sortedFallback.filter(member => member.designation.toLowerCase().includes('advisor'));
                 setMembers(sortedFallback);
+                setAdvisers(advisor);
             }
         } catch (error) {
             console.error('Error fetching committee members:', error);
             const fallbackData = getFallbackMembers();
             // Sort fallback data by order
             const sortedFallback = fallbackData.sort((a, b) => (a.order || 0) - (b.order || 0));
+            const advisor = sortedFallback.filter(member => member.designation.toLowerCase().includes('advisor'));
             setMembers(sortedFallback);
+            setAdvisers(advisor);
         } finally {
             setLoading(false);
         }
     };
 
-    const fetchDesignationAdvisers = async () => {
-        try {
-            // For now, we'll use fallback data for advisers
-            // In the future, this could fetch from a separate API endpoint
-            const fallbackAdvisers = getFallbackAdvisers();
-            setAdvisers(fallbackAdvisers);
-        } catch (error) {
-            console.error('Error fetching designation advisers:', error);
-            const fallbackAdvisers = getFallbackAdvisers();
-            setAdvisers(fallbackAdvisers);
-        }
-    };
 
-    const getFallbackAdvisers = () => [
-        {
-            id: 1,
-            name: "Dr. Sarah Williams",
-            designation: "Faculty Advisor",
-            photo: null,
-            bio: "Professor of Computer Science with 15+ years of experience in software engineering and research. Specializes in artificial intelligence and machine learning applications.",
-            email: "sarah.williams@university.edu",
-            linkedin: "https://linkedin.com/in/sarahwilliams",
-            facebookLink: "https://facebook.com/sarahwilliams",
-            department: "Computer Science & Technology",
-            title: "Professor"
-        },
-        {
-            id: 2,
-            name: "Prof. Michael Davis",
-            designation: "Technical Advisor",
-            photo: null,
-            bio: "Associate Professor with expertise in cybersecurity and network security. Former industry professional with 10+ years in tech companies.",
-            email: "michael.davis@university.edu",
-            linkedin: "https://linkedin.com/in/michaeldavis",
-            facebookLink: "https://facebook.com/michaeldavis",
-            department: "Computer Science & Technology",
-            title: "Associate Professor"
-        },
-        {
-            id: 3,
-            name: "Dr. Emily Chen",
-            designation: "Research Advisor",
-            photo: null,
-            bio: "Assistant Professor specializing in data science and analytics. Published researcher in machine learning and statistical modeling.",
-            email: "emily.chen@university.edu",
-            linkedin: "https://linkedin.com/in/emilychen",
-            facebookLink: "https://facebook.com/emilychen",
-            department: "Computer Science & Technology",
-            title: "Assistant Professor"
-        }
-    ];
 
     const getFallbackMembers = () => [
         {
@@ -192,7 +148,7 @@ export default function Committee() {
 
 
             {/* Designation Advisers Section */}
-            <section className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-blue-50 to-indigo-100">
+            <section className="py-12 sm:py-16 lg:py-20 ">
                 <div className="w-full mx-auto px-4 sm:px-6 lg:px-22">
                     <div className="text-center mb-12 sm:mb-16">
                         <h2 className="text-2xl sm:text-3xl md:text-2xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 px-4">Our <span className='text-orange-800 animate-pulse'>Advisers</span></h2>
@@ -203,7 +159,7 @@ export default function Committee() {
                     </div>
 
                     {/* Advisers Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 lg:gap-10">
                         {advisers.map((adviser) => (
                             <div
                                 key={adviser.id}
@@ -227,7 +183,7 @@ export default function Committee() {
                                         </div>
                                     </div>
 
-                                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 group-hover:text-blue-800 transition-colors duration-300">
+                                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 group-hover:text-orange-800 transition-colors duration-300">
                                         {adviser.name}
                                     </h3>
 
@@ -236,7 +192,7 @@ export default function Committee() {
                                     </Badge>
 
                                     {adviser.title && (
-                                        <p className="text-sm text-blue-600 mb-1 font-semibold">
+                                        <p className="text-sm text-orange-600 mb-1 font-semibold">
                                             {adviser.title}
                                         </p>
                                     )}
@@ -249,7 +205,7 @@ export default function Committee() {
 
                                 {/* Enhanced Bio Section */}
                                 <div className="flex-grow mb-6">
-                                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-100">
+                                    <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-xl p-4 border border-orange-100">
                                         <p className="text-gray-600 text-sm leading-relaxed line-clamp-5 group-hover:text-gray-700 transition-colors duration-300">
                                             {adviser.bio}
                                         </p>
@@ -292,7 +248,7 @@ export default function Committee() {
                                 </div>
 
                                 {/* Subtle corner accent */}
-                                <div className="absolute top-4 left-4 w-2 h-2 bg-blue-400 rounded-full opacity-60"></div>
+                                <div className="absolute top-4 left-4 w-2 h-2 bg-orange-400 rounded-full opacity-60"></div>
                             </div>
                         ))}
                     </div>
