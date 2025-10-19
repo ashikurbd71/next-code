@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -15,12 +15,7 @@ export default function EventsPage() {
     const [pastEvents, setPastEvents] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetchEvents();
-    }, []);
-
-
-    const fetchEvents = async () => {
+    const fetchEvents = useCallback(async () => {
         try {
             const [upcomingResponse, pastResponse] = await Promise.all([
                 fetch('/api/events?upcoming=true'),
@@ -47,7 +42,11 @@ export default function EventsPage() {
         } finally {
             setLoading(false);
         }
-    };
+    }, []);
+
+    useEffect(() => {
+        fetchEvents();
+    }, [fetchEvents]);
 
     const getFallbackUpcomingEvents = () => [
         {

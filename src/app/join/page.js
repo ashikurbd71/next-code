@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCircle, Users, Code, Trophy, Lightbulb, Upload, X, Camera } from 'lucide-react';
 import { useImageUpload } from '@/hooks/useImageUpload';
+import Image from 'next/image';
 
 export default function JoinPage() {
     const [formData, setFormData] = useState({
@@ -469,9 +470,11 @@ export default function JoinPage() {
                                         <div className="space-y-3">
                                             {profilePicturePreview ? (
                                                 <div className="relative inline-block">
-                                                    <img
+                                                    <Image
                                                         src={profilePicturePreview}
                                                         alt="Profile preview"
+                                                        width={96}
+                                                        height={96}
                                                         className="w-24 h-24 rounded-full object-cover border-2 border-gray-300"
                                                     />
                                                     <button
