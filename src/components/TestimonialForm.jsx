@@ -22,6 +22,10 @@ export default function TestimonialForm({
         name: initialData.name || '',
         role: initialData.role || '',
         department: initialData.department || '',
+        session: initialData.session || '',
+        gmail: initialData.gmail || '',
+        linkedinProfile: initialData.linkedinProfile || '',
+        currentCompany: initialData.currentCompany || '',
         content: initialData.content || '',
         isActive: initialData.isActive !== undefined ? initialData.isActive : true,
         photo: initialData.photo || ''
@@ -105,6 +109,64 @@ export default function TestimonialForm({
                             placeholder="e.g., Computer Science, Information Technology"
                             className="text-sm sm:text-base"
                             required
+                        />
+                    </div>
+
+                    {/* Session */}
+                    <div className="space-y-2">
+                        <Label htmlFor="session" className="text-sm sm:text-base font-medium">Session</Label>
+                        <Select
+                            value={formData.session}
+                            onValueChange={(value) => handleInputChange('session', value)}
+                        >
+                            <SelectTrigger className="text-sm sm:text-base">
+                                <SelectValue placeholder="Select session" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="2020-21">2020-21</SelectItem>
+                                <SelectItem value="2021-22">2021-22</SelectItem>
+                                <SelectItem value="2022-23">2022-23</SelectItem>
+                                <SelectItem value="2023-24">2023-24</SelectItem>
+                                <SelectItem value="2024-25">2024-25</SelectItem>
+                                <SelectItem value="2025-26">2025-26</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+
+                    {/* Gmail */}
+                    <div className="space-y-2">
+                        <Label htmlFor="gmail" className="text-sm sm:text-base font-medium">Gmail</Label>
+                        <Input
+                            id="gmail"
+                            type="email"
+                            value={formData.gmail}
+                            onChange={(e) => handleInputChange('gmail', e.target.value)}
+                            placeholder="your.email@gmail.com"
+                            className="text-sm sm:text-base"
+                        />
+                    </div>
+
+                    {/* LinkedIn Profile */}
+                    <div className="space-y-2">
+                        <Label htmlFor="linkedinProfile" className="text-sm sm:text-base font-medium">LinkedIn Profile</Label>
+                        <Input
+                            id="linkedinProfile"
+                            value={formData.linkedinProfile}
+                            onChange={(e) => handleInputChange('linkedinProfile', e.target.value)}
+                            placeholder="https://linkedin.com/in/yourprofile"
+                            className="text-sm sm:text-base"
+                        />
+                    </div>
+
+                    {/* Current Company */}
+                    <div className="space-y-2">
+                        <Label htmlFor="currentCompany" className="text-sm sm:text-base font-medium">Current Company</Label>
+                        <Input
+                            id="currentCompany"
+                            value={formData.currentCompany}
+                            onChange={(e) => handleInputChange('currentCompany', e.target.value)}
+                            placeholder="Your current company name"
+                            className="text-sm sm:text-base"
                         />
                     </div>
 

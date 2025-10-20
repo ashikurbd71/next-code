@@ -18,6 +18,22 @@ export const Testimonial = new EntitySchema({
         department: {
             type: 'varchar'
         },
+        session: {
+            type: 'varchar',
+            nullable: true
+        },
+        gmail: {
+            type: 'varchar',
+            nullable: true
+        },
+        linkedinProfile: {
+            type: 'varchar',
+            nullable: true
+        },
+        currentCompany: {
+            type: 'varchar',
+            nullable: true
+        },
         photo: {
             type: 'varchar',
             nullable: true

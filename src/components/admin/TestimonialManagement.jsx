@@ -107,6 +107,53 @@ export default function TestimonialManagement({
                                 />
                             </div>
                             <div>
+                                <Label className='pb-2' htmlFor="session">Session</Label>
+                                <Select
+                                    value={formData.session || ''}
+                                    onValueChange={(value) => setFormData({ ...formData, session: value })}
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select session" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="2020-21">2020-21</SelectItem>
+                                        <SelectItem value="2021-22">2021-22</SelectItem>
+                                        <SelectItem value="2022-23">2022-23</SelectItem>
+                                        <SelectItem value="2023-24">2023-24</SelectItem>
+                                        <SelectItem value="2024-25">2024-25</SelectItem>
+                                        <SelectItem value="2025-26">2025-26</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                            <div>
+                                <Label className='pb-2' htmlFor="gmail">Gmail</Label>
+                                <Input
+                                    id="gmail"
+                                    type="email"
+                                    value={formData.gmail || ''}
+                                    onChange={(e) => setFormData({ ...formData, gmail: e.target.value })}
+                                    placeholder="student@gmail.com"
+                                />
+                            </div>
+                            <div>
+                                <Label className='pb-2' htmlFor="linkedinProfile">LinkedIn Profile</Label>
+                                <Input
+                                    id="linkedinProfile"
+                                    value={formData.linkedinProfile || ''}
+                                    onChange={(e) => setFormData({ ...formData, linkedinProfile: e.target.value })}
+                                    placeholder="https://linkedin.com/in/username"
+                                />
+                            </div>
+                            <div>
+                                <Label className='pb-2' htmlFor="currentCompany">Current Company</Label>
+                                <Input
+                                    id="currentCompany"
+                                    value={formData.currentCompany || ''}
+                                    onChange={(e) => setFormData({ ...formData, currentCompany: e.target.value })}
+                                    placeholder="Company Name"
+                                />
+                            </div>
+                            <div>
                                 <Label className='pb-2' htmlFor="content">Testimonial Content</Label>
                                 <Textarea
                                     id="content"
@@ -218,6 +265,22 @@ export default function TestimonialManagement({
                                         </div>
                                         <p className="text-blue-600 font-medium mb-2">{testimonial.role}</p>
                                         <p className="text-gray-600 mb-2">{testimonial.department}</p>
+                                        {testimonial.session && (
+                                            <p className="text-orange-600 text-sm mb-2">Session: {testimonial.session}</p>
+                                        )}
+                                        {testimonial.currentCompany && (
+                                            <p className="text-green-600 text-sm mb-2">Company: {testimonial.currentCompany}</p>
+                                        )}
+                                        {testimonial.gmail && (
+                                            <p className="text-gray-500 text-sm mb-1">📧 {testimonial.gmail}</p>
+                                        )}
+                                        {testimonial.linkedinProfile && (
+                                            <p className="text-blue-500 text-sm mb-2">
+                                                <a href={testimonial.linkedinProfile} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                                                    🔗 LinkedIn Profile
+                                                </a>
+                                            </p>
+                                        )}
                                         <p className="text-gray-700 italic">"{testimonial.content}"</p>
                                     </div>
                                 </div>

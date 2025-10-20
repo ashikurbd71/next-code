@@ -38,12 +38,16 @@ export async function POST(request) {
         const testimonialRepository = dataSource.getRepository(Testimonial);
 
         const body = await request.json();
-        const { name, role, department, photo, content, isActive } = body;
+        const { name, role, department, session, gmail, linkedinProfile, currentCompany, photo, content, isActive } = body;
 
         const testimonial = testimonialRepository.create({
             name,
             role,
             department,
+            session,
+            gmail,
+            linkedinProfile,
+            currentCompany,
             photo,
             content,
             isActive: isActive !== undefined ? isActive : true
