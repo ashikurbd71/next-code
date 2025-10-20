@@ -3,12 +3,36 @@
 import { useState, useEffect } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Linkedin, Mail, Github, Facebook } from 'lucide-react';
+import { Linkedin, Mail, Github, Facebook, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function Committee() {
     const [members, setMembers] = useState([]);
     const [advisers, setAdvisers] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    // Pagination state
+    const [currentMemberPage, setCurrentMemberPage] = useState(1);
+    const [currentAdviserPage, setCurrentAdviserPage] = useState(1);
+    const itemsPerPage = 8;
+
+    // Pagination logic
+    const getPaginatedData = (data, currentPage) => {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        return data.slice(startIndex, endIndex);
+    };
+
+    const getTotalPages = (data) => {
+        return Math.ceil(data.length / itemsPerPage);
+    };
+
+    const handleMemberPageChange = (page) => {
+        setCurrentMemberPage(page);
+    };
+
+    const handleAdviserPageChange = (page) => {
+        setCurrentAdviserPage(page);
+    };
 
     useEffect(() => {
         fetchCommitteeMembers();
@@ -177,7 +201,7 @@ export default function Committee() {
 
                     {/* Advisers Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 lg:gap-10">
-                        {advisers.map((adviser) => (
+                        {getPaginatedData(advisers, currentAdviserPage).map((adviser) => (
                             <div
                                 key={adviser.id}
                                 className="bg-white border-0 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 p-8 group h-full flex flex-col relative overflow-hidden hover:scale-[1.02]"
@@ -269,6 +293,44 @@ export default function Committee() {
                             </div>
                         ))}
                     </div>
+
+                    {/* Advisers Pagination Controls */}
+                    {getTotalPages(advisers) > 1 && (
+                        <div className="flex justify-center items-center mt-12 space-x-2">
+                            <button
+                                onClick={() => handleAdviserPageChange(currentAdviserPage - 1)}
+                                disabled={currentAdviserPage === 1}
+                                className="flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                            >
+                                <ChevronLeft className="w-4 h-4 mr-1" />
+                                Previous
+                            </button>
+
+                            <div className="flex space-x-1">
+                                {Array.from({ length: getTotalPages(advisers) }, (_, i) => i + 1).map((page) => (
+                                    <button
+                                        key={page}
+                                        onClick={() => handleAdviserPageChange(page)}
+                                        className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 ${currentAdviserPage === page
+                                            ? 'bg-orange-500 text-white'
+                                            : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-700'
+                                            }`}
+                                    >
+                                        {page}
+                                    </button>
+                                ))}
+                            </div>
+
+                            <button
+                                onClick={() => handleAdviserPageChange(currentAdviserPage + 1)}
+                                disabled={currentAdviserPage === getTotalPages(advisers)}
+                                className="flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                            >
+                                Next
+                                <ChevronRight className="w-4 h-4 ml-1" />
+                            </button>
+                        </div>
+                    )}
                 </div>
             </section>
             {/* Management Committee Section */}
@@ -284,7 +346,7 @@ export default function Committee() {
 
                     {/* Committee Members Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
-                        {members.map((member) => (
+                        {getPaginatedData(members, currentMemberPage).map((member) => (
                             <div
                                 key={member.id}
                                 className="bg-white border-0 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 p-6 group h-full flex flex-col relative overflow-hidden hover:scale-[1.02]"
@@ -389,6 +451,44 @@ export default function Committee() {
                             </div>
                         ))}
                     </div>
+
+                    {/* Members Pagination Controls */}
+                    {getTotalPages(members) > 1 && (
+                        <div className="flex justify-center items-center mt-12 space-x-2">
+                            <button
+                                onClick={() => handleMemberPageChange(currentMemberPage - 1)}
+                                disabled={currentMemberPage === 1}
+                                className="flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                            >
+                                <ChevronLeft className="w-4 h-4 mr-1" />
+                                Previous
+                            </button>
+
+                            <div className="flex space-x-1">
+                                {Array.from({ length: getTotalPages(members) }, (_, i) => i + 1).map((page) => (
+                                    <button
+                                        key={page}
+                                        onClick={() => handleMemberPageChange(page)}
+                                        className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 ${currentMemberPage === page
+                                            ? 'bg-orange-500 text-white'
+                                            : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-700'
+                                            }`}
+                                    >
+                                        {page}
+                                    </button>
+                                ))}
+                            </div>
+
+                            <button
+                                onClick={() => handleMemberPageChange(currentMemberPage + 1)}
+                                disabled={currentMemberPage === getTotalPages(members)}
+                                className="flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                            >
+                                Next
+                                <ChevronRight className="w-4 h-4 ml-1" />
+                            </button>
+                        </div>
+                    )}
                 </div>
             </section>
 
